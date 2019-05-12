@@ -8,48 +8,54 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ListTest {
+
+    private static final String a = "a";
+    public static String b = "b";
+    static String c  ="c";
+
     /**
      * 目标：将120-1-A和120-2-A，120-1-B和120-2-B成对的排序到一起,而且每对中120-1必须在120-2前面
      * @param args
      */
     public static void main(String[] args) {
-        //构造数据
-        User user = new User();
-        user.setId(1);
-        user.setName("120-1-A");
-
-        User user1 = new User();
-        user1.setId(2);
-        user1.setName("120-2-A");
-
-        User user2 = new User();
-        user2.setId(3);
-        user2.setName("120-1-B");
-
-        User user3 = new User();
-        user3.setId(4);
-        user3.setName("120-2-B");
-
-        User user4 = new User();
-        user4.setId(5);
-        user4.setName("120-1-C");
-
-        User user5 = new User();
-        user5.setId(6);
-        user5.setName("120-2-C");
-
-        List<User> userList = new ArrayList<User>();
-        //打乱顺序的赋值
-        userList.add(user);
-        userList.add(user2);
-        userList.add(user5);
-        userList.add(user3);
-        userList.add(user4);
-        userList.add(user1);
-//        testListSort(userList);
-        testCollectionSort(userList);
-        System.out.println("最终得到的userList-->>"+JSON.toJSONString(userList));
-        testListHalf(userList);
+//        //构造数据
+//        User user = new User();
+//        user.setId(1);
+//        user.setName("120-1-A");
+//
+//        User user1 = new User();
+//        user1.setId(2);
+//        user1.setName("120-2-A");
+//
+//        User user2 = new User();
+//        user2.setId(3);
+//        user2.setName("120-1-B");
+//
+//        User user3 = new User();
+//        user3.setId(4);
+//        user3.setName("120-2-B");
+//
+//        User user4 = new User();
+//        user4.setId(5);
+//        user4.setName("120-1-C");
+//
+//        User user5 = new User();
+//        user5.setId(6);
+//        user5.setName("120-2-C");
+//
+//        List<User> userList = new ArrayList<User>();
+//        //打乱顺序的赋值
+//        userList.add(user);
+//        userList.add(user2);
+//        userList.add(user5);
+//        userList.add(user3);
+//        userList.add(user4);
+//        userList.add(user1);
+////        testListSort(userList);
+//        testCollectionSort(userList);
+//        System.out.println("最终得到的userList-->>"+JSON.toJSONString(userList));
+//        testListHalf(userList);
+        testListAddNull();
     }
 
     /**这个方法排序失败*/
@@ -137,6 +143,7 @@ public class ListTest {
              * 返回0 表示：p1和p2相等，
              * 返回正数表示：p1大于p2
              */
+            @Override
             public int compare(User user1, User user2) {
 //                if (getSuffix(user1.getName()).equals(getSuffix(user2.getName()))){
 //                    return 0;
@@ -175,5 +182,23 @@ public class ListTest {
         }
         //SerializerFeature.DisableCircularReferenceDetect是为了避免打印出来的字符串为循环引用？？
         System.out.println("最终组装结果："+JSON.toJSONString(entityList, SerializerFeature.DisableCircularReferenceDetect));
+    }
+
+    /**
+     * foreach别忘了判空
+     */
+    public static void testListAddNull(){
+        List<User> userList = new ArrayList<>();
+        userList.add(new User());
+        userList.add(null);
+        userList.add(null);
+        if (userList!=null && userList.size()>0){
+            for(User user : userList){
+                if (user!=null){
+                    System.out.println(user);
+                    System.out.println(user.getSex());
+                }
+            }
+        }
     }
 }

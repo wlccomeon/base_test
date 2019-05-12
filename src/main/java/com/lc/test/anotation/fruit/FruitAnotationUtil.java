@@ -1,4 +1,4 @@
-package com.lc.test.anotation;
+package com.lc.test.anotation.fruit;
 
 import java.lang.reflect.Field;
 
