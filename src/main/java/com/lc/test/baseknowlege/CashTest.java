@@ -8,10 +8,10 @@ public class CashTest {
     public static void main(String[] args) {
         DecimalFormat decimalFormat = new DecimalFormat("###,###.00");
         System.out.println(decimalFormat.format(100000022));    //1,002,200,999.22
-        showStringByDate(new Date(),new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"));
+        showStringByDate(new Date(),new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"),"aaa");
     }
 
-    public static String showStringByDate(Date date, SimpleDateFormat fmt){
+    public static String showStringByDate(Date date, SimpleDateFormat fmt,String test){
         if (date == null){
             System.out.println("date为空！");
             return null;

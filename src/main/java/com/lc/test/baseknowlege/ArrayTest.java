@@ -2,6 +2,7 @@ package com.lc.test.baseknowlege;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,7 @@ public class ArrayTest {
         testBubboSort2();
         testBubboSort();
 //        testArrayAndSplit();
-        testArrayContains();
+//        testArrayContains();
     }
 
 
@@ -86,9 +87,13 @@ public class ArrayTest {
         }
     }
 
-    public static void testArrayContains(){
+
+    @Test
+    public  void testArrayContains(){
         int[] nums = {1,2,3,4,5,6,7,8};
-        List myList = Arrays.asList(nums);
+        List numsList = Arrays.asList(nums);
+        System.out.println("numsList-->>"+numsList);
+        List myList = Arrays.asList(1,2,3,4,5,6);
         System.out.println("myuList-->>"+ JSON.toJSONString(myList));
         System.out.println("list contains result-->>>"+myList.contains(2));
 

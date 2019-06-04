@@ -13,6 +13,18 @@ public class EdenFirst {
 
 	public static void main(String[] args) {
 		testAllocation();
+
+		//jdk1.8 result：
+		//[GC (Allocation Failure) [PSYoungGen: 6590K->808K(9216K)] 6590K->4912K(19456K), 0.0041797 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+		//Heap
+		// PSYoungGen      total 9216K, used 7189K [0x00000000ff600000, 0x0000000100000000, 0x0000000100000000)
+		//  eden space 8192K, 77% used [0x00000000ff600000,0x00000000ffc3b798,0x00000000ffe00000)
+		//  from space 1024K, 78% used [0x00000000ffe00000,0x00000000ffeca020,0x00000000fff00000)
+		//  to   space 1024K, 0% used [0x00000000fff00000,0x00000000fff00000,0x0000000100000000)
+		// ParOldGen       total 10240K, used 4104K [0x00000000fec00000, 0x00000000ff600000, 0x00000000ff600000)
+		//  object space 10240K, 40% used [0x00000000fec00000,0x00000000ff002020,0x00000000ff600000)
+		// Metaspace       used 3500K, capacity 4498K, committed 4864K, reserved 1056768K
+		//  class space    used 387K, capacity 390K, committed 512K, reserved 1048576K
 	}
 
 	/**
