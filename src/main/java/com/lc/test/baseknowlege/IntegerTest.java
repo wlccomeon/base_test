@@ -17,20 +17,56 @@ public class IntegerTest {
      * Integer默认情况下存在一个-128到127之间的缓存，在这个区间内的数值，会直接从缓存中取。
      * 1.当使用==进行比较的时候，区间内的值会返回true，区间外的会返回false
      * 2.Integer类型推荐使用equals方法，可以避免这个问题。
+     * 3.Integer与int进行比较的时候，会自动进行拆箱，比较数值大小。
      */
     @Test
     public void testIntegerCache(){
         Integer a = 200;
         Integer b = 200;
+        int f = 200;
+        Integer c = new Integer(20);
+        Integer d = 20;
+        Integer e = 20;
         //fasle
         System.out.println(a==b);
-        Integer c = 20;
-        Integer d = 20;
-        //true
+        //false
         System.out.println(c==d);
+        //ture
+        System.out.println(d==e);
+        //true
+        System.out.println(b==f);
 
         System.out.println(a.equals(b));
         System.out.println(c.equals(d));
+
+        long aLong = 1L;
+        aLong+=aLong;
+        System.out.printf("长整型数字结果：%d",aLong);
+
+        short s = 0;
+        s+=s;
+        s=s++;
+        //下面的写法报错的，因为2为int类型，int类型与short/long进行计算的时候会自动转换成int，而结果要求的是short类型。
+        //        s=s+2;
+        //下面的写法就没问题。。。。难道是因为short、int和long的区别吗
+        long m = 1L+2;
+        System.out.println("s+2"+(s+2));
+        System.out.println("\ns:"+s);
+
+        long x = 1;
+        x+=x;
+        x=x+1;
+
+        short y = 1;
+        y+=y;
+//        y=y+1;
+
+        Short z = 1;
+//        z+=z;
+        z++;
+
+
+
     }
 
     /**
@@ -42,4 +78,7 @@ public class IntegerTest {
         int result = Integer.parseInt("1000",2);
         System.out.println("result-->>"+result);
     }
+
+
+
 }
