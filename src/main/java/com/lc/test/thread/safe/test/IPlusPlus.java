@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @Description: i++问题的探讨
@@ -25,6 +26,10 @@ public class IPlusPlus {
 
 	private AtomicInteger aiVal = new AtomicInteger(0);
 
+	/**
+	 * 使用读写锁
+	 */
+	public static ReentrantLock lock = new ReentrantLock();
 
 	/**
 	 * 使用synchronized进行锁定，保证i++安全
@@ -70,11 +75,43 @@ public class IPlusPlus {
 	}
 
 	/**
+	 * 使用读写锁实现线程安全
+	 */
+	@Test
+	public void safePlus3(){
+		for (int i=1; i<=50;i++ ){
+			new Thread(()->{
+				getNext3();
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			},"test-thread-"+i).start();
+		}
+	}
+
+	public void getNext3() {
+		lock.lock();
+		val++;
+		System.out.println("线程" + Thread.currentThread().getName() + "当前val值为：" + val);
+		lock.unlock();
+	}
+
+	/**
 	 * 未添加任何锁，直接多线程相加
 	 * 可能出现的问题：
-	 * 			1.多个线程获取的数值相同
-	 * 		    2.某些数值丢失
-	 * 			3.总和不为50
+	 * 			1.多个线程获取的数值相同或某些数值丢失
+	 * 				线程test-thread-34当前val值为：48
+	 * 				线程test-thread-31当前val值为：50
+	 * 				线程test-thread-32当前val值为：49
+	 * 				线程test-thread-33当前val值为：48
+	 * 			2.总和不为50
+	 * 				线程test-thread-32当前val值为：45
+	 * 				线程test-thread-31当前val值为：46
+	 * 				线程test-thread-30当前val值为：47
+	 * 				线程test-thread-29当前val值为：48
+	 * 				线程test-thread-28当前val值为：49
 	 */
 	@Test
 	public void unsafePlus(){
