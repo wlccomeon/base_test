@@ -127,4 +127,50 @@ public class IPlusPlus {
 			},"test-thread-"+i).start();
 		}
 	}
+
+
+	//===============================另外一种i++不安全的表现形式============start==========
+
+	/**
+	 * volatile不保证原子性
+	 */
+	@Test
+	public void testVolatileAtomic(){
+		MemoryData memoryData = new MemoryData();
+		for (int i=0; i<20; i++){
+		    new Thread(()->{
+				for (int j = 0; j <100 ; j++) {
+					memoryData.addOne();
+				}
+		    },String.valueOf(i)).start();
+		}
+
+		//确保上面的20个线程执行完毕，2个线程是指main和gc线程
+		while (Thread.activeCount()>2){
+			//让出main线程的cpu执行权
+			Thread.yield();
+		}
+		//打印最终结果
+		System.out.println("the finally result is: "+memoryData.num);
+
+		//结果为：
+		//the finally result is: 1995
+	}
+
+	class MemoryData{
+		/**使用volatile修饰num，测试其不保证原子性的问题*/
+		volatile int num = 0;
+
+		/**
+		 * 对num加1
+		 */
+		public void addOne(){
+			num++;
+		}
+	}
+
+	//===============================另外一种i++不安全的表现形式============end============
+
+
+
 }
