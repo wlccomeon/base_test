@@ -18,6 +18,10 @@ public class MapTest {
         Map<String,Object> dataMap = new HashMap<String, Object>();
 //        dataMap.put("a",1);
 //        dataMap.put("b",2);
+//		dataMap.put(null,"haha");
+		String a = (String) dataMap.put(null,"lc");
+		System.out.println(a);
+		System.out.println(dataMap);
         if (dataMap.containsKey(null)){
             System.out.println("false");
         }else{

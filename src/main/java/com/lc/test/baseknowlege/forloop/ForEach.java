@@ -2,12 +2,15 @@ package com.lc.test.baseknowlege.forloop;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class ForEach {
+
+	public static void main(String[] args) {
+		ForEach forEach = new ForEach();
+		forEach.multiThreadReadList();
+	}
 
 
 	/**
@@ -132,6 +135,31 @@ public class ForEach {
 				}
 			}
 		}
+	}
+
+
+	public void multiThreadReadList(){
+		List<String> myList = new ArrayList<>();
+		for (int i = 0; i < 3; i++) {
+			myList.add("data"+i);
+		}
+
+		Iterator<String> iterator = myList.iterator();
+		System.out.println(iterator.getClass().getName());
+//		for (int i=1; i<= 2; i++){
+//			new Thread(()->{
+		    	while (iterator.hasNext()){
+		    		myList.remove(0);
+					System.out.println("线程"+Thread.currentThread().getName()+"遍历得到的值"+iterator.next());
+//					//沉睡10ms，确保其他线程进行iterator遍历
+//					try {
+//						TimeUnit.MILLISECONDS.sleep(10);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+				}
+//		    },String.valueOf(i)).start();
+//		}
 	}
 
 }

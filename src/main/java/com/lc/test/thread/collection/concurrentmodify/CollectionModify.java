@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description: 集合的并发修改异常测试
@@ -18,9 +19,26 @@ public class CollectionModify {
 
 		//对线程不安全的集合类进行并发修改：
 		List<String> list = new ArrayList<>();
-		for (int i=1; i<=30; i++){
+		for (int i=1; i<=500; i++){
 			collectionModify.startListThread(list,i);
 		}
+		try {
+		    TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+		System.out.println("list.size--->>>"+list.size());
+		//结果：list中得到的结果不对。。
+		//list.size--->>>499
+		//造成这个的原因通过追踪源码大致可以猜测会出现在两个地方：
+			//1.arrayList在进行扩容的时候
+			//2.add方法的elementData[size++] = e;size++是不安全的，有可能并发添加导致丢数据
+
+
+
+
+
+
 
 		//出现异常：java.util.ConcurrentModificationException
 		//导致原因：
@@ -64,7 +82,7 @@ public class CollectionModify {
 
 //		collectionModify.vectorConcurrentModify();
 //		collectionModify.synchronizedListModify();
-		collectionModify.copyOnWriteList();
+//		collectionModify.copyOnWriteList();
 	}
 
 	/**
@@ -105,7 +123,9 @@ public class CollectionModify {
 	public void startListThread(List<String> list,Integer i){
 		new Thread(()->{
 			list.add(UUID.randomUUID().toString().substring(0,8));
-			System.out.println(Thread.currentThread().getName()+"-->"+list);
+			//下面的打印如果不去掉的话，会报java.util.ConcurrentModificationException错误
+			//原因：打印的时候，集合的toString()方法使用的Iterator遍历并获取元素，StringBuilder进行拼接，而Iterator遍历时，是不允许修改集合的长度的。
+//			System.out.println(Thread.currentThread().getName()+"-->"+list);
 		},String.valueOf(i)).start();
 	}
 
