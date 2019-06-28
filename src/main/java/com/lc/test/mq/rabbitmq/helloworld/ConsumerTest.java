@@ -1,4 +1,4 @@
-package com.lc.test.mq.helloworld;
+package com.lc.test.mq.rabbitmq.helloworld;
 
 import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Test;

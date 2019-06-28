@@ -1,4 +1,4 @@
-package com.lc.test.mq.multirouting;
+package com.lc.test.mq.rabbitmq.topic;
 
 import com.rabbitmq.client.*;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import static com.lc.test.mq.common.Constant.*;
 
 /**
- * 多路由绑定的消费者
+ * topic模式消费者1
  * @author wlc
  */
 public class Consumer1 {
@@ -23,20 +23,17 @@ public class Consumer1 {
 		Connection connection = factory.newConnection();
 		final Channel channel = connection.createChannel();
 
-		String EXCHANGE_NAME = "exchange.direct.routing";
-		// 生成一个随机的名称，queueDeclare()方法没有任何参数，当最后一个消费者断开时就会删除掉该队列，当消费者结束后可以看到队列就删除了
-		String QUEUE_NAME = channel.queueDeclare().getQueue();
-		channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-		// 在消费者端队列绑定
-
-		// 将一个对列绑定多个路由键
-		String[] routingKeys = {"debug", "info"};
+		String EXCHANGE_NAME = "exchange.topic.x";
+		String QUEUE_NAME = "queue.topic.q1";
+		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+		
+		String[] routingKeys = {"*.orange.*"};
 		for (int i = 0; i < routingKeys.length; i++) {
 			channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, routingKeys[i]);
 		}
 
 		System.out.println("Consumer Wating Receive Message");
-
 		Consumer consumer = new DefaultConsumer(channel){
 			@Override
 			public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
@@ -49,5 +46,6 @@ public class Consumer1 {
 
 		Thread.sleep(1000000);
 	}
+
 }
 

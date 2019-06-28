@@ -1,4 +1,4 @@
-package com.lc.test.mq.fanout;
+package com.lc.test.mq.rabbitmq.fanout;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;

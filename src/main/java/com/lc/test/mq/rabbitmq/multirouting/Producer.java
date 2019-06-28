@@ -1,4 +1,4 @@
-package com.lc.test.mq.helloworld;
+package com.lc.test.mq.rabbitmq.multirouting;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -11,37 +11,36 @@ import java.util.concurrent.TimeoutException;
 
 import static com.lc.test.mq.common.Constant.*;
 
-public class ProducerTest {
-
+/**
+ * 多路由绑定测试
+ * @author wlc
+ * 注意：绑定交换机、队列的操作在消费者上。需要首先启动消费者
+ */
+public class Producer {
 	@Test
 	public void testBasicPublish() throws IOException, TimeoutException {
-		// 创建连接工厂
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost(IP);
 		factory.setPort(AMQP.PROTOCOL.PORT);
 		factory.setUsername(USERNAME);
 		factory.setPassword(PASSOWRD);
 
-		// 新建一个长连接
 		Connection connection = factory.newConnection();
-
-		// 创建一个通道(一个轻量级的连接)
 		Channel channel = connection.createChannel();
 
-		// 声明一个队列
-		String QUEUE_NAME = "hello";
-		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		// Routing 的路由规则使用直连接
+		String EXCHANGE_NAME = "exchange.direct.routing";
+		String[] routingKeys = {"debug", "info", "warning", "error"};
+		for (int i = 0; i < 20; i++){
+			int random = (int)(Math.random() * 4);
+			String routingKey = routingKeys[random];
+			String message = "Hello RabbitMQ - " + routingKey + " - " + i;
 
-		// 发送消息到队列中
-		String message = "Hello RabbitMQ!";
-		// 注意：exchange如果不需要写成空字符串，routingKey和队列名称保持一致
-		channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
-		System.out.println("Producer Send a message:" + message);
+			channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes("UTF-8"));
+		}
 
 		// 关闭资源
 		channel.close();
 		connection.close();
 	}
-
-
 }

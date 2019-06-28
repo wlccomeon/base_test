@@ -55,10 +55,23 @@
             <artifactId>mongodb-driver</artifactId>
             <version>3.6.3</version>
         </dependency>
+        <!--rabbitmq-->
         <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
             <version>5.0.0</version>
+        </dependency>
+        <!--activemq-->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>5.15.0</version>
+        </dependency>
+        <!--activemq依赖的日志jar-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -72,6 +85,7 @@
             <version>5.3.0</version>
             <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 
