@@ -7,11 +7,13 @@ package com.lc.test.designpattern.singleton;
  **/
 public class  LazyEnumSingleton {
 
-	private byte[] data = new byte[1024];
-
 	private LazyEnumSingleton(){};
 
+	/**
+	 * 内部类形式的枚举，可起到懒加载的类似效果
+	 */
 	private enum LazyEnumHolder{
+
 		INSTANCE;
 
 		private LazyEnumSingleton instance;
@@ -25,9 +27,11 @@ public class  LazyEnumSingleton {
 		}
 	}
 
+	/**
+	 * 提供单例的静态方法
+	 */
 	public static LazyEnumSingleton getInstance(){
 		return LazyEnumHolder.INSTANCE.getSingleton();
 	}
-
 
 }
