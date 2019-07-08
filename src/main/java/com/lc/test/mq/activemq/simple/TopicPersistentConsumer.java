@@ -21,17 +21,16 @@ import java.util.concurrent.TimeUnit;
  **/
 public class TopicPersistentConsumer {
 
-
 	private static String BROKER_URL = "tcp://192.168.20.138:61616";
-	private static String TOPIC_NAME = "lc_durable_topic";
-	/**订阅者zhangsan*/
+	private static String TOPIC_NAME = "lc_durable_jdbc_topic";
+	/**订阅者zhangsan，启动两个main实例即可测试两个消费者*/
 	private static String subscriber1 = "zhangsan";
 	/**订阅者lisi*/
 	private static String subscriber2 = "lisi";
 
 	public static void main(String[] args){
 
-		System.out.println("我是订阅者："+subscriber2);
+		System.out.println("我是订阅者："+subscriber1);
 
 		try {
 			//创建连接工厂
@@ -39,7 +38,7 @@ public class TopicPersistentConsumer {
 			//创建连接
 			Connection connection = connectionFactory.createConnection();
 			//设置订阅者的id，需要在创建session之前赋值，否则会报错。
-			connection.setClientID(subscriber2);
+			connection.setClientID(subscriber1);
 			//第1个参数为是否支持事务，第2个参数为是否使用消息确认机制
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			//session创建destination，queue和topic都是destination。
@@ -53,7 +52,7 @@ public class TopicPersistentConsumer {
 			Message message = durableSubscriber.receive();
 			while (null!=message){
 				TextMessage txtMsg = (TextMessage)message;
-				System.out.println(subscriber2+"接收到持久化发布者推送的消息："+txtMsg.getText());
+				System.out.println(subscriber1+"接收到持久化发布者推送的消息："+txtMsg.getText());
 				//如果5秒钟之内，接收不到新的消息，将中断循环。
 				message = durableSubscriber.receive(5000L);
 			}
@@ -66,9 +65,5 @@ public class TopicPersistentConsumer {
 		}catch (JMSException jmsE){
 			jmsE.printStackTrace();
 		}
-
-
 	}
-
-
 }
