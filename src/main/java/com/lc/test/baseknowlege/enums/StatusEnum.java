@@ -1,4 +1,4 @@
-package com.lc.test.enums;
+package com.lc.test.baseknowlege.enums;
 
 public enum StatusEnum implements CommonEnum {
     WAITTING(0, "WAITTING", "等待"),

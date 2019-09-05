@@ -1,6 +1,5 @@
 package com.lc.test.thread.providerconsumer.evolution;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.TagName;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

@@ -1,7 +1,5 @@
 package com.lc.test.gc;
 
-import com.sun.org.apache.bcel.internal.generic.ALOAD;
-
 /**
  * 长期存活的对象将进入老年代：年龄默认为15岁。
  * VM参数：-verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8

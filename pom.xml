@@ -86,6 +86,12 @@
             <artifactId>jedis</artifactId>
             <version>3.0.1</version>
         </dependency>
+        <!--时间工具类，代替jdk自带-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.3</version>
+        </dependency>
 
 
     </dependencies>

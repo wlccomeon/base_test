@@ -1,4 +1,4 @@
-package com.lc.test.enums;
+package com.lc.test.baseknowlege.enums;
 
 /**
  * 枚举接口
