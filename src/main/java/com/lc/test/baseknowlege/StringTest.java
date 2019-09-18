@@ -3,9 +3,11 @@ package com.lc.test.baseknowlege;
 import com.alibaba.fastjson.JSON;
 import com.lc.test.entity.User;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class StringTest {
 
@@ -213,4 +215,32 @@ public class StringTest {
 // 对于什么时候会在常量池存储字符串对象，我想我们可以基本得出结论: 1. 显示调用String的intern方法的时候; 2. 直接声明字符串字面常量的时候，例如: String a = "aaa";
 // 3. 字符串直接常量相加的时候，例如: String c = "aa" + "bb";  其中的aa/bb只要有任何一个不是字符串字面常量形式，都不会在常量池生成"aabb". 且此时jvm做了优化，不//   会同时生成"aa"和"bb"在字符串常量池中
     }
+
+    /**
+     * subString的用法，注意endIndex
+     * 2、public String substring(int beginIndex, int endIndex)
+     * 返回一个新字符串，它是此字符串的一个子字符串。该子字符串从指定的 beginIndex 处开始， endIndex:到指定的 endIndex-1处结束。
+     * 参数：beginIndex - 开始处的索引（包括）
+     *     　　endindex 结尾处索引（不包括）。
+     */
+    @Test
+    public void getUUID() {
+        String s = UUID.randomUUID().toString();
+        System.out.println("s-->>>"+s);
+        //感觉这一种写法挺二的
+        String result = new StringBuilder().append(s.substring(0, 8)).append(s.substring(9, 13))
+                .append(s.substring(14, 18)).append(s.substring(19, 23)).append(s.substring(24)).toString();
+        System.out.println("result-->>>"+result);
+        //这种写法不是挺好的吗？
+        String replace = s.replace("-","");
+        System.out.println("replace-->>>"+replace);
+    }
+
+    @Test
+    public void subStringTest(){
+        String file_auth_path = "nplmnewweb:loanContractFile:";
+        String url = "nplmnewweb:loanContractFile:2";
+        System.out.println(url.substring(file_auth_path.length(),url.length()));
+    }
+
 }
