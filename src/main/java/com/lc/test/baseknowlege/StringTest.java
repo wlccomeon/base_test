@@ -240,7 +240,14 @@ public class StringTest {
     public void subStringTest(){
         String file_auth_path = "nplmnewweb:loanContractFile:";
         String url = "nplmnewweb:loanContractFile:2";
+        //获得2
         System.out.println(url.substring(file_auth_path.length(),url.length()));
+        //获得2
+        System.out.println(url.substring(file_auth_path.length()));
+        //根据loanContractFile:获得2
+        System.out.println(url.substring(url.indexOf("loanContractFile:")+"loanContractFile:".length()));
+        //根据loanContractFile:获得nplmnewweb:
+        System.out.println(url.substring(0,url.indexOf("loanContractFile:")));
     }
 
 }
