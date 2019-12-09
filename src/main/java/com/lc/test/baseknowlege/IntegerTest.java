@@ -10,6 +10,10 @@ public class IntegerTest {
         //下面的语句直接报错：
 //        Integer.valueOf(null);
 //        testIntegerCache();
+        int i = 2 >> 3;
+        int k = 2 << 3;
+        int j = 2 & 3;
+        System.out.println("i-->>"+i+"\nk-->>"+k+"\nj-->>"+j);
     }
 
 
