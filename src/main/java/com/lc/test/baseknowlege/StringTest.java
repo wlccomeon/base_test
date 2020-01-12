@@ -22,8 +22,19 @@ public class StringTest {
 //        System.out.println("最终的user结果为-->>"+ JSON.toJSONString(user));
 //        testStrParam();
 //        getNewStringBuider();
-        analysisTime();
-        testStringCompare();
+//        analysisTime();
+//        testStringCompare();
+        testStringAddInteger();
+    }
+
+    /**
+     * 测试字符串与数字相加的结果
+     */
+    public static void testStringAddInteger(){
+        String a = "abc";
+        String b = "Had";
+        System.out.println(a+5);
+        System.out.println(b+32);
     }
 
     public static void testSubString(){
@@ -39,6 +50,9 @@ public class StringTest {
 
     }
 
+    /**
+     * 移除空格的方法
+     */
     public static void testRemoveSpace(){
         String aa = "    hahaha lc  ";
         String bb = aa.trim();
@@ -161,6 +175,12 @@ public class StringTest {
      * 测试string的比较结果
      */
     public static void testStringCompare(){
+        String a = "abc";
+        String b = "abc";
+        String c = "ab"+"c";
+        System.out.println(a==b);  //true ，先看常量池中有没有字符串，如果没有则创建，并指向内存中的引用？
+        System.out.println(c==b); //true，最终是相等的
+
         String s1 = new String("aaa");
         String s2 = "aaa";
         System.out.println(s1 == s2);    // false
