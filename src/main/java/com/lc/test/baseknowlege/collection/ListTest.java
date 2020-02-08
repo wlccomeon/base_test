@@ -1,4 +1,4 @@
-package com.lc.test.baseknowlege;
+package com.lc.test.baseknowlege.collection;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

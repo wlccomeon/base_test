@@ -10,10 +10,30 @@ public class IntegerTest {
         //下面的语句直接报错：
 //        Integer.valueOf(null);
 //        testIntegerCache();
-        int i = 2 >> 3;
+        int i = 2 >> 1;
         int k = 2 << 3;
         int j = 2 & 3;
         System.out.println("i-->>"+i+"\nk-->>"+k+"\nj-->>"+j);
+    }
+
+    /**
+     * short、long、int之间的隐式(+=的写法，编译器会默认强制转换为+左边的类型)和强制转换(=a+b需要手动强制转换为左边的类型)
+     */
+    @Test
+    public void testIntegerToOther(){
+        short a = 1;
+//		short b = 327672;//超出了short的范围(2byte 16bit，2^16次方=65536)
+//		a = a+1; //需要强制转换
+        a +=1;
+        int c = 20;
+        long d = 200;
+        c = a+1;
+//		c = a + d; //需要强转转换
+        String e="3";
+        Integer f=2;
+//		f+=e; //报错,String无法转换为Integer
+        e+=f; //可以正常转换
+        char g = 'a'; //单引号表示字符常量
     }
 
 
