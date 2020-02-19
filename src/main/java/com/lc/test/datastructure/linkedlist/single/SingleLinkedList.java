@@ -1,4 +1,4 @@
-package com.lc.test.datastructure.linkedlist;
+package com.lc.test.datastructure.linkedlist.single;
 
 /**
  * @desc 单链表模拟实现
@@ -12,7 +12,7 @@ package com.lc.test.datastructure.linkedlist;
  */
 public class SingleLinkedList<E> {
 	/**头节点，开始时不存储数据，当添加链表节点时，头结点的next域指向该节点*/
-	private Node<E> head = new Node<>(null,null);
+	private Node<E> head = new Node<>(null);
 
 	/**
 	 * 添加节点
@@ -29,7 +29,7 @@ public class SingleLinkedList<E> {
 			temp = temp.next;
 		}
 		//找到该节点之后，将节点的指针域指向最新的节点
-		temp.next = new Node(elment,null);
+		temp.next = new Node(elment);
 	}
 
 	/**
@@ -116,8 +116,6 @@ public class SingleLinkedList<E> {
 		//endregion
 	}
 
-
-
 	/**
 	 * 按照顺序打印单链表
 	 */
@@ -140,7 +138,6 @@ public class SingleLinkedList<E> {
 		}
 	}
 
-
 	/**
 	 * 数据节点
 	 */
@@ -150,9 +147,8 @@ public class SingleLinkedList<E> {
 		/**指针域*/
 		Node<E> next;
 
-		public Node(E data, Node<E> next) {
+		public Node(E data) {
 			this.data = data;
-			this.next = next;
 		}
 	}
 

@@ -49,8 +49,11 @@ public class SingleChainListReverse implements Serializable {
 			return head;// 若为空链或者当前结点在尾结点，则直接还回
 		}
 		Node reHead = Reverse1(head.getNext());// 先反转后续节点head.getNext()
-		head.getNext().setNext(head);// 将当前结点的指针域指向前一结点
+//		head.getNext().setNext(head);// 将当前结点的指针域指向前一结点
+//		head.setNext(null);// 前一结点的指针域令为null;
+		Node beforHead=head.getNext();
 		head.setNext(null);// 前一结点的指针域令为null;
+		beforHead.setNext(head);
 		return reHead;// 反转后新链表的头结点
 	}
 }

@@ -1,4 +1,6 @@
-package com.lc.test.datastructure.linkedlist;
+package com.lc.test.datastructure.linkedlist.single;
+
+import com.lc.test.datastructure.linkedlist.Hero;
 
 /**
  * @desc 简单单链表测试
@@ -9,9 +11,9 @@ public class SingleLinkedListTest {
 	/**初始化数据*/
 	static SingleLinkedList<Hero> heros = new SingleLinkedList<>();
 	static {
+		Hero songjiang = new Hero(1,"宋江","呼保义");
 		Hero lujunyi = new Hero(2,"卢俊义","玉麒麟");
 		Hero wuyong = new Hero(3,"吴勇","智多星");
-		Hero songjiang = new Hero(1,"宋江","呼保义");
 		Hero gongsunsheng = new Hero(4,"公孙胜","入云龙");
 		heros.add(lujunyi);
 		heros.add(wuyong);
@@ -29,7 +31,7 @@ public class SingleLinkedListTest {
 		heros.printEles();
 		System.out.println("==============链表删除数据====================");
 		//删除边界中的第1个
-		heros.delete(new Hero(2,"卢俊义","玉麒麟"));
+		heros.delete(new Hero(1,"宋江","呼保义"));
 //		heros.delete(new Hero(3,"吴勇","智多星"));
 		//删除边界中的最后1个
 		heros.delete(new Hero(4,"公孙胜","入云龙"));
@@ -49,5 +51,6 @@ public class SingleLinkedListTest {
 		//Hero{rank=3, name='吴勇', nickName='智多星'}
 		//Hero{rank=1, name='宋江', nickName='及时雨'}
 	}
+
 
 }
