@@ -2,6 +2,7 @@ package com.lc.test.baseknowlege;
 
 import com.alibaba.fastjson.JSON;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,35 @@ import java.util.List;
  */
 public class MainTest {
 	public static void main(String[] args) {
-		List<Integer> initList = new ArrayList<Integer>(2);
-		List<Integer> secList = new ArrayList<Integer>(2);
-		secList.add(1);
-		secList.add(2);
-		initList.addAll(secList);
-		System.out.println("赋值之后的数据为："+JSON.toJSONString(initList));
-		System.out.println("当前时间："+System.currentTimeMillis() / 1000);
+		//main
+		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+		//test
+		test();
+		//main
+		System.out.println("getPreMethodName() = " + getPreMethodName());
+	}
+	public static void test(){
+		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+	}
+
+	/**
+	 * 获取调用本方法的上一级方法名
+	 * @return
+	 */
+	public static String getPreMethodName(){
+		return Thread.currentThread().getStackTrace()[2].getMethodName();
+	}
+
+}
+class Test{
+	public static void main(String[] args) {
+		test2("aaaa");
+	}
+	public static void test2(String param){
+		System.out.println(param.getClass().getName());
+		System.out.println(param.getClass().getTypeName());
+		System.out.println("MainTest.getPreMethodName() = " + MainTest.getPreMethodName());
+		final String methodName = new Exception().getStackTrace()[0].getMethodName();
+		System.out.println("methodName = " + methodName);
 	}
 }

@@ -4,11 +4,31 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by wlc on 2017/8/15 0015.
+ * @author wlc
  */
-public class User implements Serializable {
+@Data
+public class User implements Serializable,Cloneable {
+    private static final AtomicLong num = new AtomicLong(0);
+    private static final String a = "a";
+
+
+    public static void main(String[] args) {
+
+//        a = "bbb"; //直接报错
+        num.getAndIncrement(); //这个就可以。。
+
+        System.out.println(21/100);
+        System.out.println(121/100);
+        try {
+            System.out.println("hahah");
+        }catch (Exception e){
+            System.out.println(1/0);
+        }
+    }
 
     public User(Integer id,String name,Integer sex,String address){
         this.id = id;
@@ -22,45 +42,8 @@ public class User implements Serializable {
     private Integer sex;
     private String address;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", sex=" + sex +
-                ", address='" + address + '\'' +
-                '}';
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicStampedReference;
 
 /**
  * @Description: 集合的并发修改异常测试
@@ -86,7 +87,7 @@ public class CollectionModify {
 	}
 
 	/**
-	 * 使用vector进行并发修改
+	 * 使用vector进行并发修改，这个是锁的方法
 	 */
 	public void vectorConcurrentModify(){
 		List<String> list = new Vector<>();;
@@ -96,7 +97,7 @@ public class CollectionModify {
 	}
 
 	/**
-	 * 使用集合工具类Collections自带的synchronizedList
+	 * 使用集合工具类Collections自带的synchronizedList,这个是锁的代码块
 	 */
 	public void synchronizedListModify(){
 		List<String> list = Collections.synchronizedList(new ArrayList<>());

@@ -19,7 +19,8 @@ public class ListTest {
      */
     public static void main(String[] args) {
 
-//        //构造数据
+        //region 排序-翼龙贷
+        //        //构造数据
 //        User user = new User();
 //        user.setId(1);
 //        user.setName("120-1-A");
@@ -56,7 +57,13 @@ public class ListTest {
 //        testCollectionSort(userList);
 //        System.out.println("最终得到的userList-->>"+JSON.toJSONString(userList));
 //        testListHalf(userList);
-        testListAddNull();
+        //endregion
+
+        //region list添加null数据
+//        testListAddNull();
+        //endregion
+
+
     }
 
     /**这个方法排序失败*/

@@ -40,6 +40,7 @@ public class CglibDynamicProxy implements MethodInterceptor {
     }
 
     /**MethodInterceptor的拦截方法*/
+    @Override
     public Object intercept(Object object, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
         System.out.println("cgLib动态代理方法参数："+ JSON.toJSONString(args));
         // 被织入的横切内容，开始时间 before

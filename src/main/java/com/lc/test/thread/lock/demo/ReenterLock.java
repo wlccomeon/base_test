@@ -1,5 +1,9 @@
 package com.lc.test.thread.lock.demo;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,8 +21,20 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ReenterLock {
 
 	public static void main(String[] args) {
-		reEntrantLockTest();
+//		reEntrantLockTest();
 		//		synchronizedTest();
+		File file = new File("F:\\settings.xml");
+		try {
+			DataInputStream is = new DataInputStream(new FileInputStream(file));
+			int bytes = 0;
+			byte[] bufferOut = new byte[1024];
+			while ((bytes = is.read(bufferOut))!=-1){
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void reEntrantLockTest(){
