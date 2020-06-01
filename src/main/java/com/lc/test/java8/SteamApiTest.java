@@ -139,6 +139,10 @@ public class SteamApiTest {
 		employees.stream().sorted(Comparator.comparingInt(Employee::getAge).thenComparing(Employee::getSalary,Comparator.reverseOrder())).forEach(System.out::println);
 	}
 
+	/**
+	 * sort和sorted的对比
+	 * sort不需要
+	 */
 	@Test
 	public void compareSortAndSorted(){
 //		List<Employee> employees = getEmployees();
@@ -157,9 +161,21 @@ public class SteamApiTest {
 		System.out.println("*******原始数据********");
 		List<Employee> employees2 = getEmployees();
 		employees2.stream().forEach(System.out::println);
-		System.out.println("*****排序赋新值之后******");
+		System.out.println("*****排序赋新值之后,原集合对象的引用将会更改******");
 		employees2 = employees2.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).collect(Collectors.toList());
 		employees2.stream().forEach(System.out::println);
+
+	}
+
+	/**
+	 * 将集合转换为Map
+	 */
+	@Test
+	public void mapTest(){
+		List<Employee> list = getEmployees();
+		Map<Integer, Employee> collect = list.stream().collect(Collectors.toMap(Employee::getId,
+				employee -> employee));
+		System.out.println("collect = " + collect);
 	}
 
 	/**
@@ -168,32 +184,40 @@ public class SteamApiTest {
 	@Test
 	public void testComplexSort(){
 		List<Employee> employees = getEmployees();
-		employees.stream().sorted((emp1,emp2)->{
-			//先按照名字排列：名字为雷军的，排第1位，包含雷军的排在后面（如果包含雷军的有多个，则按照年龄排序）
-			if("雷军".equals(emp1.getName()) && "雷军".equals(emp2.getName())){
-				return 0;
-			}
-			if("雷军".equals(emp1.getName()) && !"雷军".equals(emp2.getName())){
-				return -1;
-			}
-			if (!"雷军".equals(emp1.getName()) && "雷军".equals(emp2.getName())){
-				return 1;
-			}
-			if (emp1.getName().contains("雷军") && emp2.getName().contains("雷军")){
-				//先按照年龄自小到大排序
-				int ageCompareResult = Integer.compare(emp1.getAge(),emp2.getAge());
-				if (ageCompareResult != 0){
-					return ageCompareResult;
-				}
-				//按照工资自小到大倒序排列
-				return -Double.compare(emp1.getSalary(),emp2.getSalary());
-			}
-
-			if (emp1.getName().contains("雷军") && !emp2.getName().contains("雷军")){
-				return -1;
-			}
-			return 0;
-		}).forEach(System.out::println);
+		String key = "雷军";
+		//Comparator.reverseOrder()是对单个条件的翻转，而reversed则是对整个排序结果的翻转
+		//下面的写法能够代替下下面的复杂写法
+		employees.stream().sorted(Comparator.comparing((Employee employee) -> key.equals(employee.getName()),Comparator.reverseOrder())
+				.thenComparing(employee -> employee.getName().contains(key),Comparator.reverseOrder())
+				.thenComparing(Employee::getAge))
+				.collect(Collectors.toList())
+				.forEach(System.out::println);
+//		employees.stream().sorted((emp1,emp2)->{
+//			//先按照名字排列：名字为雷军的，排第1位，包含雷军的排在后面（如果包含雷军的有多个，则按照年龄排序）
+//			if("雷军".equals(emp1.getName()) && "雷军".equals(emp2.getName())){
+//				return 0;
+//			}
+//			if("雷军".equals(emp1.getName()) && !"雷军".equals(emp2.getName())){
+//				return -1;
+//			}
+//			if (!"雷军".equals(emp1.getName()) && "雷军".equals(emp2.getName())){
+//				return 1;
+//			}
+//			if (emp1.getName().contains("雷军") && emp2.getName().contains("雷军")){
+//				//先按照年龄自小到大排序
+//				int ageCompareResult = Integer.compare(emp1.getAge(),emp2.getAge());
+//				if (ageCompareResult != 0){
+//					return ageCompareResult;
+//				}
+//				//按照工资自小到大倒序排列
+//				return -Double.compare(emp1.getSalary(),emp2.getSalary());
+//			}
+//
+//			if (emp1.getName().contains("雷军") && !emp2.getName().contains("雷军")){
+//				return -1;
+//			}
+//			return 0;
+//		}).forEach(System.out::println);
 	}
 
 	/**
@@ -300,8 +324,8 @@ public class SteamApiTest {
 		data.add(new Employee(101,"雷军",40,20030.00,true));
 		data.add(new Employee(102,"余雷军",40,30200.00,false));
 		//实际是白永祥，这里随便写的
-		data.add(new Employee(103,"白雷军",39,1220.02,true));
 		data.add(new Employee(104,"卢冰伟",28,20388.08,true));
+		data.add(new Employee(103,"白雷军",39,1220.02,true));
 		data.add(new Employee(105,"库克",68,120030.99,false));
 		data.add(new Employee(106,"常程",42,6030.66,true));
 		return data;
