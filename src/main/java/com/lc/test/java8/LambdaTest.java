@@ -2,6 +2,8 @@ package com.lc.test.java8;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.function.Consumer;
 
@@ -17,6 +19,7 @@ public class LambdaTest {
 	public static void main(String[] args) {
 		LambdaTest lambdaTest = new LambdaTest();
 		lambdaTest.noParamReturn();
+
 	}
 
 	/**
