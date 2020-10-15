@@ -10,6 +10,13 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -176,6 +183,11 @@ public class SteamApiTest {
 		Map<Integer, Employee> collect = list.stream().collect(Collectors.toMap(Employee::getId,
 				employee -> employee));
 		System.out.println("collect = " + collect);
+	}
+
+	@Test
+	public void booleanSortTest(){
+
 	}
 
 	/**
