@@ -78,6 +78,12 @@ public class Java8LocalDateTest {
 	}
 
 	@Test
+	public void calTest(){
+		double v = new BigDecimal((float) 90 / 200).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		System.out.println("v = " + v);
+	}
+
+	@Test
 	public void calcDaysBetweenLocalDate(){
 		LocalDate today = getNowLocalDate();
 		System.out.println("today = " + today.toString());
