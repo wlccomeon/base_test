@@ -1,4 +1,4 @@
-package com.lc.test.designpattern;
+package com.lc.test.designpattern.observer;
 
 /***
  * 抽象观察者

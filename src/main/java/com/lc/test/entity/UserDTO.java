@@ -1,22 +1,17 @@
 package com.lc.test.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.time.*;
-import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalField;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by wlc on 2017/8/15 0015.
- * @author wlc c
+ * @author wlc
  */
 @Data
-public class User implements Serializable,Cloneable {
+public class UserDTO implements Serializable,Cloneable {
     private static final AtomicLong num = new AtomicLong(0);
     private static final String a = "a";
 
@@ -35,13 +30,13 @@ public class User implements Serializable,Cloneable {
 //        }
 //    }
 
-    public User(Integer id,String name,Integer sex,String address){
+    public UserDTO(Integer id, String name, Integer sex, String address){
         this.id = id;
         this.name = name;
         this.sex = sex;
         this.address = address;
     }
-    public User(){}
+    public UserDTO(){}
     private Integer id;
     private String name;
     private Integer sex;
@@ -56,7 +51,7 @@ public class User implements Serializable,Cloneable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        UserDTO user = (UserDTO) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name);
     }

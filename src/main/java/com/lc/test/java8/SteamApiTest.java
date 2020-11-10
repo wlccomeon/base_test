@@ -142,7 +142,7 @@ public class SteamApiTest {
 		System.out.println("**************");
 		newResult.stream().forEach(System.out::println);
 		System.out.println("**************");
-		//上面的写法可以使用链式简化为如下(工资按照自小到大顺序排列的)：
+		//上面的写法可以使用链式简化为如下(工资按照自大到小顺序排列的)：
 		employees.stream().sorted(Comparator.comparingInt(Employee::getAge).thenComparing(Employee::getSalary,Comparator.reverseOrder())).forEach(System.out::println);
 	}
 
@@ -466,13 +466,30 @@ public class SteamApiTest {
 		return sb.toString();
 	}
 
+	/**
+	 * 测试在stream的map操作中添加数据
+	 * 结果：不论是Array还是List，均为空
+	 * 		将map操作改成foreach操作就能得到添加的数据了
+	 */
 	@Test
-	public void test(){
+	public void testStreamMapOpt(){
 		String expiredKey  = "a:2:3";
-		String[] split = expiredKey.split(":");
-		String anchorType = split.length > 1 ? split[1] : "";
-		String anchorId = split.length > 2 ? split[2] : "";
+		String[] splits = expiredKey.split(":");
+		String anchorType = splits.length > 1 ? splits[1] : "";
+		String anchorId = splits.length > 2 ? splits[2] : "";
+		//2:3
 		System.out.println(anchorType+":"+anchorId);
+		//测试数组在map映射中进行操作的时候，是否能够成功
+		Set<String> strSet = new HashSet<>();
+//		Arrays.stream(splits).map(split -> strSet.add(split));
+		Arrays.stream(splits).forEach(split -> strSet.add(split));
+		strSet.forEach(System.out::println);
+		//测试list在map映射中进行添加操作
+		List<Employee> employees = getEmployees();
+		Set<Employee> employeeSet = new HashSet<>();
+//		employees.stream().map(employee -> employeeSet.add(employee));
+		employees.stream().forEach(employee -> employeeSet.add(employee));
+		employeeSet.forEach(System.out::println);
 	}
 }
 

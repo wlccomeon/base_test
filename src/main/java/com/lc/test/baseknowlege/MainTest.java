@@ -31,6 +31,10 @@ public class MainTest {
 	}
 
 }
+
+/**
+ * 测试获取上一级方法名
+ */
 class Test{
 	public static void main(String[] args) {
 		test2("aaaa");
@@ -41,5 +45,32 @@ class Test{
 		System.out.println("MainTest.getPreMethodName() = " + MainTest.getPreMethodName());
 		final String methodName = new Exception().getStackTrace()[0].getMethodName();
 		System.out.println("methodName = " + methodName);
+	}
+}
+
+/**
+ * 判断switch传null参数的情况
+ * 结果：抛出NPE问题
+ */
+class Test1{
+	public static void main(String[] args) {
+		//会抛出  java.lang.NullPointerException 异常
+		method(null);
+	}
+	public static void method(String param) {
+		//必须对传进来的参数param进行判空
+		switch (param) {
+			// 肯定不是进入这里
+			case "sth":
+				System.out.println("it's sth");
+				break;
+			// 也不是进入这里
+			case "null":
+				System.out.println("it's null");
+				break;
+			// 也不是进入这里
+			default:
+				System.out.println("default");
+		}
 	}
 }

@@ -253,7 +253,7 @@ public class Java8LocalDateTest {
 	public static Long getDayLeftMillis(){
 		LocalDateTime nowTime = getLocalDateTime();
 		LocalDateTime midnight = nowTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
-		return ChronoUnit.MILLIS.between(LocalDateTime.now(),midnight);
+		return ChronoUnit.MILLIS.between(nowTime,midnight);
 	}
 	/**
 	 * 获取当前时间距当周结束时间的毫秒数
