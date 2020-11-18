@@ -491,5 +491,17 @@ public class SteamApiTest {
 		employees.stream().forEach(employee -> employeeSet.add(employee));
 		employeeSet.forEach(System.out::println);
 	}
+	@Test
+	public void longCompareTest(){
+		List<Long> longList = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			longList.add((long) i);
+		}
+		System.out.println("========排序之前============");
+		longList.forEach(System.out::println);
+		List<Long> collect = longList.stream().sorted(Comparator.comparing(Long::longValue,Comparator.reverseOrder())).collect(Collectors.toList());
+		System.out.println("=========排序之后============");
+		collect.forEach(System.out::println);
+	}
 }
 

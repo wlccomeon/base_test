@@ -3,6 +3,7 @@ package com.lc.test.utils;
 import com.lc.test.entity.User;
 import com.lc.test.entity.UserDTO;
 import net.sf.cglib.beans.BeanCopier;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ import java.util.Map;
 
 public class BeanCopierUtils {
 
-    Logger logger = LoggerFactory.getLogger(BeanCopierUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(BeanCopierUtils.class);
 	/**dd
 	 * BeanCopier缓存，flyweight模式的运用，将BeanCopier缓存起来。
 	 */
@@ -51,19 +52,33 @@ public class BeanCopierUtils {
     }
 
     public static void main(String[] args) {
-//        List<User> users = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            User user = new User();
-//            user.setId(i+1);
-//            user.setName("wlc"+i);
-//            user.setAddress("爪哇"+i);
-//            users.add(user);
-//        }
-//        for (User user : users) {
-//            BeanCopierUtils.copyProperties(user, UserDTO.class);
-//        }
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            User user = new User();
+            user.setId(i+1);
+            user.setName("wlc"+i);
+            user.setAddress("爪哇"+i);
+            users.add(user);
+        }
+        List<UserDTO> userDTOS1 = new ArrayList<>();
+        for (User user : users) {
+//			UserDTO userDTO = new UserDTO();
+//            BeanCopierUtils.copyProperties(user, userDTO);
+//            userDTOS.add(userDTO);
+			userDTOS1.add(BeanCopierUtils.clone(user,UserDTO.class));
+        }
+		List<UserDTO> userDTOS2 = new ArrayList<>();
+        try{
+			for (User user : users) {
+				UserDTO userDTO = new UserDTO();
+				BeanUtils.copyProperties(userDTO,user);
+			}
+		}catch (Exception e){
 
-		System.out.println("45735642/1000/60/60 = " + 45735642 / 1000 / 60 / 60);
+		}
+
+//        userDTOS.stream().forEach(System.out::println);
+
 
 	}
 
@@ -74,7 +89,7 @@ public class BeanCopierUtils {
 	 * @param clazz 目标Class对象
 	 * @return 克隆后的对象
 	 */
-	public <T> T clone(Class<T> clazz) {
+	public static <T> T clone(Object source,Class<T> clazz) {
 		T target = null;
 
 		try {
@@ -83,7 +98,7 @@ public class BeanCopierUtils {
 			logger.error("error", e);
 		}
 
-		BeanCopierUtils.copyProperties(this, target);
+		BeanCopierUtils.copyProperties(source, target);
 		return target;
 	}
   
