@@ -1,15 +1,10 @@
 package com.lc.test.utils;
 
-import com.lc.test.entity.User;
-import com.lc.test.entity.UserDTO;
 import net.sf.cglib.beans.BeanCopier;
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,11 +12,10 @@ import java.util.Map;
  * @author wlc
  *
  */
-
 public class BeanCopierUtils {
 
     private static Logger logger = LoggerFactory.getLogger(BeanCopierUtils.class);
-	/**dd
+	/**
 	 * BeanCopier缓存，flyweight模式的运用，将BeanCopier缓存起来。
 	 */
 	private static Map<String, BeanCopier> beanCopierCacheMap = new HashMap<String, BeanCopier>();
@@ -51,54 +45,22 @@ public class BeanCopierUtils {
         beanCopier.copy(source, target, null);
     }
 
-    public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
-            User user = new User();
-            user.setId(i+1);
-            user.setName("wlc"+i);
-            user.setAddress("爪哇"+i);
-            users.add(user);
-        }
-        List<UserDTO> userDTOS1 = new ArrayList<>();
-        for (User user : users) {
-//			UserDTO userDTO = new UserDTO();
-//            BeanCopierUtils.copyProperties(user, userDTO);
-//            userDTOS.add(userDTO);
-			userDTOS1.add(BeanCopierUtils.clone(user,UserDTO.class));
-        }
-		List<UserDTO> userDTOS2 = new ArrayList<>();
-        try{
-			for (User user : users) {
-				UserDTO userDTO = new UserDTO();
-				BeanUtils.copyProperties(userDTO,user);
-			}
-		}catch (Exception e){
-
-		}
-
-//        userDTOS.stream().forEach(System.out::println);
-
-
-	}
-
 
 
 	/**
-	 * 使用方法：在目标类，比如vo、dto中添加该 克隆  方法
-	 * @param clazz 目标Class对象
+	 * 更优雅的属性复制方法
+	 * @param source 数据源对象
+	 * @param clazz 目标Class
 	 * @return 克隆后的对象
 	 */
-	public static <T> T clone(Object source,Class<T> clazz) {
+	public static <T> T copyProperties(Object source,Class<T> clazz) {
 		T target = null;
-
 		try {
 			target = clazz.newInstance();
+			BeanCopierUtils.copyProperties(source, target);
 		} catch (Exception e) {
 			logger.error("error", e);
 		}
-
-		BeanCopierUtils.copyProperties(source, target);
 		return target;
 	}
   

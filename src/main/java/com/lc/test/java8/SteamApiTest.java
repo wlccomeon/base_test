@@ -334,13 +334,24 @@ public class SteamApiTest {
 	public List<Employee> getEmployees(){
 		List<Employee> data = new ArrayList<>();
 		data.add(new Employee(101,"雷军",40,20030.00,true));
-		data.add(new Employee(102,"余雷军",40,30200.00,false));
+		data.add(new Employee(102,"余雷军",20,30200.00,true));
 		//实际是白永祥，这里随便写的
-		data.add(new Employee(104,"卢冰伟",28,20388.08,true));
-		data.add(new Employee(103,"白雷军",39,1220.02,true));
+		data.add(new Employee(104,"卢冰伟",40,20388.08,true));
+		data.add(new Employee(103,"白雷军",40,1220.02,true));
 		data.add(new Employee(105,"库克",68,120030.99,false));
 		data.add(new Employee(106,"常程",42,6030.66,true));
 		return data;
+	}
+
+	@Test
+	public void testBoolean(){
+		//按照 等于keyword → 包含keyword → 年龄为40 的规则进行排序
+		String keyword = "雷军";
+		List<Employee> employees = getEmployees();
+		List<Employee> collect = employees.stream().sorted(Comparator.comparing((Employee employee) -> employee.getName().equals(keyword),Comparator.reverseOrder())
+				.thenComparing(employee -> employee.getName().contains(keyword),Comparator.reverseOrder())
+				.thenComparing(employee -> 40==employee.getAge(),Comparator.reverseOrder())).collect(Collectors.toList());
+		collect.forEach(System.out::println);
 	}
 
 	/**
@@ -381,16 +392,12 @@ public class SteamApiTest {
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
-	class Employee implements Comparator<Employee>{
+	class Employee{
 		private Integer id;
 		private String name;
 		private Integer age;
 		private double salary;
-		private Boolean isChinesee;
-		@Override
-		public int compare(Employee o1, Employee o2) {
-			return 0;
-		}
+		private Boolean isChinese;
 	}
 
 	@Test

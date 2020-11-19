@@ -1,0 +1,6 @@
+#配置日志级别
+logging:
+  level:
+    root: info
+#禁用日志的debug
+debug: false

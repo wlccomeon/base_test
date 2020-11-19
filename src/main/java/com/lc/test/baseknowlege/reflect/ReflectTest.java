@@ -24,7 +24,7 @@ public class ReflectTest {
 
 	public static void main(String[] args){
 		try {
-			String filePath = "C:\\dev_workspace\\idea\\base_test\\src\\main\\resources\\application.properties";
+			String filePath = "C:\\dev_workspace\\idea\\base_test\\src\\main\\resources\\application.yml";
 			Properties properties = loadFile2Properties(filePath);
 			if (properties!=null){
 				User user = new User();
