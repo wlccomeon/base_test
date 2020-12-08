@@ -23,8 +23,5 @@ public interface PoToDtoMapping {
      * @param user
      * @return
      */
-    @Mappings(value = {
-            @Mapping(source = "id",target = "id")
-    })
     UserDTO copyUserToUserDTO(User user);
 }

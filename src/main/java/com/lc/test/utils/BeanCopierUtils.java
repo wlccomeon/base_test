@@ -36,7 +36,9 @@ public class BeanCopierUtils {
         		 if (!beanCopierCacheMap.containsKey(cacheKey)) {  
         			 beanCopier = BeanCopier.create(source.getClass(), target.getClass(), false);  
         			 beanCopierCacheMap.put(cacheKey, beanCopier);  
-        		 }
+        		 }else{
+					 beanCopier = beanCopierCacheMap.get(cacheKey);
+				 }
         	}
         } else {  
             beanCopier = beanCopierCacheMap.get(cacheKey);   

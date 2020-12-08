@@ -11,7 +11,9 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,9 +24,15 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/test")
-public class TestController {
-    private static List<User> users = new ArrayList<>();
+public class BeanCopyTestController {
+
     static {
+
+    }
+
+    @GetMapping("/bean-copy")
+    public void beanCopyTest(){
+        List<User> users = new ArrayList<>();
         for (int i = 0; i < 1000000; i++) {
             User user = new User();
             user.setId(i+1);
@@ -32,11 +40,6 @@ public class TestController {
             user.setAddress("爪哇"+i);
             users.add(user);
         }
-    }
-
-    @GetMapping("/bean-copy")
-    public void beanCopyTest(){
-
         //结论：从性能上来说：
         //      mapStruct >>  BeanCopier > Spring BeanUtils >> Apache BeanUtils
         //     从使用编辑性上来说，BeanCopier比较优雅
@@ -80,13 +83,31 @@ public class TestController {
         }
         stopWatch.stop();
         log.info("Apache BeanUtils花费时间：{}ms",stopWatch.getLastTaskTimeMillis());
-
         log.info("总共花费时间:{}ms",stopWatch.getTotalTimeMillis());
-
-//        userDTOS.stream().forEach(System.out::println);
     }
 
-    public void mapStruct(){
+    public static void main(String[] args) {
+        DecimalFormat df = new DecimalFormat("##0.00");
+        double a = 88;
+        double b = 98;
+        double c = a/b;
+        System.out.println("c = " + c);
+        System.out.println("df.format(c) = " + df.format(c));
+
+        double[] doubles = {88,89,80,55};
+        double sum = Arrays.stream(doubles).sum();
+        double aDouble = doubles[1];
+        double result = aDouble / sum;
+
+        System.out.println("result = " + result);
+        System.out.println("df.format(result) = " + df.format(result));
+
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> subList = integers.subList(0, 4);
+        subList.forEach(System.out::println);
+
+        System.out.println("35%10 = " + 35 % 10);
+        System.out.println("35/10 = " + 35 / 10);
 
     }
 

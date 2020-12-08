@@ -1,0 +1,184 @@
+业务需求：
+	每第10个位置显示一个广告位
+
+	目前现状： 数据是按照分页加载的，
+
+	开发：1.需要准确判断每页当中是否需要加载广告，加载几个广告的方法逻辑
+/**
+     * 为"更多"设置广告位
+     * @param adIds
+     * @param page
+     */
+    private void setMoreLocationAd(PageDTO<HallRoomDTO> page,ClientEnvEnum envEnum,List<Long> adIds){
+        try {
+            switch (envEnum) {
+                case OBS:
+                case iOS:
+                case Mobile:
+                case Android:
+                    int elementLocation = 10;
+                    //分页data为空则直接结束
+                    List<HallRoomDTO> roomList = page.getList();
+                    if (CollectionUtils.isEmpty(roomList)) {
+                        return;
+                    }
+                    //校验累计获取的“更多”数据总数是否大于10。
+                    int pageNum = page.getMeta().getPageNum();
+                    int pageSize = page.getMeta().getPageSize();
+                    int totalSize = pageNum * pageSize;
+                    if (totalSize < elementLocation) {
+                        return;
+                    }
+
+                    //为每第10个位置添加广告
+                    int remainder = totalSize % elementLocation;
+                    //确定每页数量是否大于10
+                    boolean flag = pageSize >= elementLocation;
+                    int location;
+                    if (flag) {
+                        //可能需要多次赋值
+                        int resultInt = totalSize / elementLocation;
+                        for (int i = 0; i < resultInt; i++) {
+                            if (i * elementLocation < pageSize) {
+                                location = pageSize - remainder - elementLocation * i - 1;
+                                setMoreLocationAd(roomList,location,adIds);
+                            }
+                        }
+                    } else {
+                        //只有在余数小于每页数量时才会添加一个广告
+                        if (remainder < pageSize) {
+                            location = pageSize - remainder - 1;
+                            setMoreLocationAd(roomList,location,adIds);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception e){
+            log.error("获取更多中的广告位数据出错:{}",e);
+            e.printStackTrace();
+        }
+
+    }
+			/**
+     * 为"更多"设置广告
+     * @param roomList 待添加广告的数据集合
+     * @param location 待添加广告的位置
+     */
+    private void setMoreLocationAd(List<HallRoomDTO> roomList,int location,List<Long> adIds){
+        if (roomList.size()<location){
+            return;
+        }
+        HallRoomDTO hallRoomDTO = roomList.get(location);
+        SimpleAdvertisingDTO adDTO = obtainAdvertising(true);
+        hallRoomDTO.setAd(adDTO);
+        adIds.add(adDTO.getId());
+    }
+
+		 2. 按照权重随机抽取广告方法逻辑。
+		 	 /**
+     * 获取强插位的广告
+     * @param isMustShow 是否必定显示,推荐位可能显示，“更多”中每10个则必定显示
+     * @return
+     */
+    private SimpleAdvertisingDTO obtainAdvertising(Boolean isMustShow){
+        SimpleAdvertisingDTO simpleDto = new SimpleAdvertisingDTO();
+        try{
+            //获取强插位的广告数据
+            List<AdvertisingConfigDTO> dtoList = advertisingConfigService.queryValidListByType(AdvertisingEnum.FORCE_INSERTION);
+            if (CollectionUtils.isEmpty(dtoList)){
+                return null;
+            }
+
+            List<WeightEntry> allEntries = new ArrayList<>();
+            Integer totalWeight = dtoList.stream().map(AdvertisingConfigDTO::getWeight).reduce(Integer::sum).get();
+            int maxWeight = 100;
+            //计算每个广告位的实际概率
+            for (int i = 0; i < dtoList.size(); i++) {
+                AdvertisingConfigDTO dto = dtoList.get(i);
+                //若该广告位为100，则直接返回
+                if (dto.getWeight()==maxWeight){
+                    BeanUtils.copyProperties(dto,simpleDto);
+                    return simpleDto;
+                }
+                //小于100，则按照是否必显来进行不同计算
+                WeightEntry entry = new WeightEntry();
+                if (isMustShow){
+                    entry.setProbability(new BigDecimal(dto.getWeight()).divide(new BigDecimal(totalWeight),2,RoundingMode.HALF_UP).doubleValue());
+                }else{
+                    entry.setProbability(new BigDecimal(dto.getWeight()).divide(new BigDecimal(maxWeight),2,RoundingMode.HALF_UP).doubleValue());
+                }
+                entry.setId(dto.getId());
+                entry.setName(dto.getName());
+                entry.setIndex(i);
+                allEntries.add(entry);
+            }
+            //若为推荐位的广告,则将其余的概率作为原来推荐位的
+            if (!isMustShow){
+                BigDecimal adTotalPercent = new BigDecimal(totalWeight).divide(new BigDecimal(maxWeight),2, RoundingMode.HALF_UP);
+                BigDecimal remainPercent = new BigDecimal(1).subtract(adTotalPercent);
+                WeightEntry remainEntry = new WeightEntry();
+                remainEntry.setProbability(remainPercent.doubleValue());
+                remainEntry.setIndex(dtoList.size());
+                allEntries.add(remainEntry);
+            }
+            //根据一定算法获取目标元素
+            WeightEntry targetEntry = getTargetEntry(allEntries);
+            if (Objects.isNull(targetEntry)){
+                return null;
+            }
+            //若id为空，则说明选中的不是强插位广告，而是原来的推荐位
+            if (Objects.isNull(targetEntry.getId())){
+                return null;
+            }
+            //id不为空，则获取该强插位广告
+            Optional<AdvertisingConfigDTO> targetAd = dtoList.stream().filter(dto -> dto.getId().equals(targetEntry.getId())).findFirst();
+            if (!targetAd.isPresent()){
+                return null;
+            }
+            AdvertisingConfigDTO dto = targetAd.get();
+            BeanUtils.copyProperties(dto,simpleDto);
+            return simpleDto;
+
+        }catch (Exception e){
+            log.error("获取强插位广告出错:{}",e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 算法：按照概率计算获取元素，这个跟业务无关，直接独立出来一个方法
+     * @param allEntries
+     * @return
+     */
+    private WeightEntry getTargetEntry(List<WeightEntry> allEntries){
+        log.info("待排序并按照概率计算获取的元素集合为:{}",JSON.toJSONString(allEntries));
+        //按照概率从小到大排序
+        allEntries.sort(Comparator.comparingDouble(WeightEntry::getProbability));
+
+        //构造一个只有概率的集合
+        List<Double> probLists = new ArrayList<>(allEntries.size());
+        //获取概率总和
+        Double sumProb = allEntries.stream().map(WeightEntry::getProbability).reduce(Double::sum).get();
+        if (sumProb <= 0){
+            return null;
+        }
+        //归一化概率断点，划定各个概率的区间，例如0-0.25,0.25-0.68,0.68-0.10共三个区间，其中0.25/0.68为两个分隔点
+        Double rate = 0D;
+        for (WeightEntry entry : allEntries) {
+            rate += entry.getProbability();
+            probLists.add(rate/sumProb);
+        }
+
+        //获取随机数,将其加入到概率集合中，并重新排序。Math.random()的概率分布更符合预期。
+        double random = Math.random();
+        probLists.add(random);
+        Collections.sort(probLists);
+
+        //获取选中的entry
+        int index = probLists.indexOf(random);
+        log.info("随机数:{}掉落的排序位置为：{}",random,index);
+        return allEntries.get(index);
+    }
