@@ -221,6 +221,13 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
+        <!--JOL 是 OpenJDK 提供的一个可以计算对象大小的工具，在项目中添加依赖后可直接使用。-->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.9</version>
+        </dependency>
+
     </dependencies>
 
 

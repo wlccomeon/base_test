@@ -131,13 +131,14 @@ public class SteamApiTest {
 		List<Employee> employees = getEmployees();
 		employees.stream().forEach(System.out::println);
 		List<Employee> newResult = employees.stream().sorted((emp1, emp2) -> {
-			//先按照年龄自小到大排序
-			int ageCompareResult = Integer.compare(emp1.getAge(), emp2.getAge());
-			if (ageCompareResult != 0) {
-				return ageCompareResult;
-			}
-			//按照工资从大到小排列
-			return -Double.compare(emp1.getSalary(), emp2.getSalary());
+			return emp1.getAge().compareTo(emp2.getAge());
+//			//先按照年龄自小到大排序
+//			int ageCompareResult = Integer.compare(emp1.getAge(), emp2.getAge());
+//			if (ageCompareResult != 0) {
+//				return ageCompareResult;
+//			}
+//			//按照工资从大到小排列
+//			return -Double.compare(emp1.getSalary(), emp2.getSalary());
 		}).collect(Collectors.toList());
 		System.out.println("**************");
 		newResult.stream().forEach(System.out::println);
