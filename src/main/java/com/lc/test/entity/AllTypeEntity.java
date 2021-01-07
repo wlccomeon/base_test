@@ -14,13 +14,13 @@ import java.util.Map;
  */
 @Data
 public class AllTypeEntity {
-    private Integer id;
-    private Double weight;
-    private Float height;
-    private Long createTime = System.currentTimeMillis();
-    private Short age;
-    private Byte status;
-    private Boolean available;
+    private int id;
+    private double weight;
+    private float height;
+    private long createTime = System.currentTimeMillis();
+    private short age;
+    private byte status;
+    private boolean available;
     private String name;
     private String[] array = {"1","2","3"};
     private List<String> props = new ArrayList<>();
