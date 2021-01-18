@@ -24,10 +24,13 @@ public class ListTest {
     public void collectionTest(){
         printCollection(list);
         System.out.println("=============");
+        list.add(0,"first");
+        printCollection(list);
+        System.out.println("=============");
         Set<String> strSet = new HashSet<>();
         strSet.addAll(list);
         //不允许添加null
-        strSet.addAll(null);
+//        strSet.addAll(null);
         printCollection(strSet);
     }
 

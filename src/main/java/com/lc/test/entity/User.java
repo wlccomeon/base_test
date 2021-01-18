@@ -5,6 +5,9 @@ import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.*;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.TemporalField;
@@ -49,6 +52,41 @@ public class User implements Serializable,Cloneable {
         User user = (User) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name);
+    }
+
+    public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InvocationTargetException {
+        User user = new User();
+        user.setName("lc");
+        user.setAddress("河北大名府");
+        Method[] methods = User.class.getDeclaredMethods();
+        for (Method method : methods) {
+            if(method.getName().equals("getName")){
+                Object fieldValue = method.invoke(user, null);
+                //结果：lc
+                System.out.println("fieldValue = " + fieldValue.toString());
+                System.out.println("captureName(fieldValue.toString()) = " + captureName(fieldValue.toString()));
+                System.out.println("captureName(\"Lc\") = " + captureName("Lc"));
+            }else if(method.getName().equals("getId")){
+                Object filedValue = method.invoke(user, null);
+                System.out.println("filedValue id = " + filedValue);
+            }
+        }
+    }
+
+    /**
+     * 将字符串的首字母转大写
+     * @param str 需要转换的字符串
+     * @return
+     */
+    private static String captureName(String str) {
+        // 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
+        // 偏移之前需要判断是否为小写字母
+        char[] cs=str.toCharArray();
+        char c = cs[0];
+        if (c >= 'a' && c<= 'z'){
+            cs[0] = (char)(c-32);
+        }
+        return String.valueOf(cs);
     }
 
     @Override

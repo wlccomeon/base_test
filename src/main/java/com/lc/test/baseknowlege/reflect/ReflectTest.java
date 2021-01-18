@@ -3,6 +3,7 @@ package com.lc.test.baseknowlege.reflect;
 import com.alibaba.fastjson.JSON;
 import com.lc.test.entity.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -51,6 +52,21 @@ public class ReflectTest {
 		setNameMethod.invoke(user,"lc-setname-by-reflect");
 		System.out.println("user-->>"+user.toString());
 		System.out.println("setName-->>"+user.getName());
+	}
+
+	@Test
+	public void getMethodTest() throws Exception{
+		User user = new User();
+		user.setName("lc");
+		user.setAddress("河北大名府");
+		Method[] methods = User.class.getDeclaredMethods();
+		for (Method method : methods) {
+			if(method.getName().equals("getName")){
+				Object fieldValue = method.invoke(user, null);
+				//结果：lc
+				System.out.println("fieldValue = " + fieldValue.toString());
+			}
+		}
 	}
 
 	/**
