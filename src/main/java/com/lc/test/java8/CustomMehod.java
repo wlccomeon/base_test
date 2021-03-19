@@ -20,6 +20,7 @@ public class CustomMehod {
 
 	public static void main(String[] args) {
 		List<User> users = new LinkedList<>();
+		//以id和name作为去重条件
 		users.add(new User(1,"Jim",1,"japan"));
 		users.add(new User(1,"Jim",1,"china"));
 		users.add(new User(1,"Leo",1,"Jim"));

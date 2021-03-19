@@ -1,7 +1,9 @@
 package com.lc.test.baseknowlege.collection;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
+import javax.servlet.http.HttpUtils;
 import java.util.*;
 
 /**
@@ -21,6 +23,34 @@ public class ListTest {
 
 
     @Test
+    public void indexOfTest(){
+        int index = list.indexOf("update2");
+        System.out.println("index = " + index);
+    }
+
+    /**
+     * 遍历时删除
+     */
+    @Test
+    public void removeWhileTraverse(){
+
+//        Iterator<String> iterator = list.iterator();
+//        while (iterator.hasNext()){
+//            String next = iterator.next();
+//            if ("delete".equals(next)){
+//                iterator.remove();
+//            }
+//        }
+//        list.forEach(System.out::println);
+
+        for (String s : list) {
+            if ("delete".equals(s)){
+                list.remove(s);
+            }
+        }
+    }
+
+    @Test
     public void collectionTest(){
         printCollection(list);
         System.out.println("=============");
@@ -32,6 +62,14 @@ public class ListTest {
         //不允许添加null
 //        strSet.addAll(null);
         printCollection(strSet);
+
+
+
+    }
+
+    @Test
+    public void sourceCodeTest(){
+        List<String> myList = new ArrayList<>();
     }
 
     private void printCollection(Collection<String> collection){

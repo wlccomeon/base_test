@@ -1,5 +1,7 @@
 package com.lc.test.java8;
 
+import com.alibaba.fastjson.JSON;
+import com.lc.test.entity.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,7 +32,13 @@ public class FunctionalInterfaceTest {
 
 	@Test
 	public void comsummerTest(){
-
+		List<User> users = new ArrayList<>();
+		User user = new User();
+		user.setAddress("北京");
+		users.add(user);
+		System.out.println("users1 = " + JSON.toJSONString(users));
+		user.setAddress("河北");
+		System.out.println("users2 = " + JSON.toJSONString(users));
 	}
 
 

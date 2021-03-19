@@ -511,5 +511,15 @@ public class SteamApiTest {
 		System.out.println("=========排序之后============");
 		collect.forEach(System.out::println);
 	}
+
+	@Test
+	public void stringCompareTest(){
+		List<String> timeList = Arrays.asList("2021-3-3 15:00:03","2021-3-3 15:00:08","2020-3-3 15:00:15");
+		//2021-3-3 15:00:08
+		//2021-3-3 15:00:03
+		//2020-3-3 15:00:15
+		List<String> collect = timeList.stream().sorted(Comparator.comparing(String::valueOf).reversed()).collect(Collectors.toList());
+		collect.forEach(System.out::println);
+	}
 }
 

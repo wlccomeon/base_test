@@ -24,17 +24,21 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ReflectTest {
 
 	public static void main(String[] args){
-		try {
-			String filePath = "C:\\dev_workspace\\idea\\base_test\\src\\main\\resources\\application.yml";
-			Properties properties = loadFile2Properties(filePath);
-			if (properties!=null){
-				User user = new User();
-				properties2Object(properties,user);
-				System.out.println("user = " + user);
-			}
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		Long a = 101L;
+		Long b = 3L;
+		double c = (double)a/b;
+		System.out.println("c = " + c);
+//		try {
+//			String filePath = "C:\\dev_workspace\\idea\\base_test\\src\\main\\resources\\application.yml";
+//			Properties properties = loadFile2Properties(filePath);
+//			if (properties!=null){
+//				User user = new User();
+//				properties2Object(properties,user);
+//				System.out.println("user = " + user);
+//			}
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}
 
 	}
 
