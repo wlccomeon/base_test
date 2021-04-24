@@ -5,13 +5,16 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import	java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Date转换等测试类
@@ -112,5 +115,37 @@ public class DateTest {
 
 	}
 
+	@Test
+	public void convertMillisToLocalDate(){
+		//2021-04-23 00:00:00
+		Long startMillis = 1619107200000L;
+		//2021-04-30 00:00:00
+		Long endMillis = 1619712000000L;
+		LocalDate startLocalDate = Instant.ofEpochMilli(startMillis).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+		LocalDate endLocalDate = Instant.ofEpochMilli(startMillis).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+	}
+
+	public static void main(String[] args) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+		int day = cal.get(Calendar.DATE);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int year = cal.get(Calendar.YEAR);
+		int dow = cal.get(Calendar.DAY_OF_WEEK);
+		int dom = cal.get(Calendar.DAY_OF_MONTH);
+		int dowim = cal.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+		int doy = cal.get(Calendar.DAY_OF_YEAR);
+		int woy = cal.get(Calendar.WEEK_OF_MONTH);
+
+		System.out.println("当期时间: " + cal.getTime());
+		System.out.println("日期: " + day);
+		System.out.println("月份: " + month);
+		System.out.println("年份: " + year);
+		System.out.println("一周的第几天: " + dow);  // 星期日为一周的第一天输出为 1，星期一输出为 2，以此类推
+		System.out.println("一周的第几天2: " + dowim);
+		System.out.println("一月中的第几天: " + dom);
+		System.out.println("一年的第几天: " + doy);
+		System.out.println("一个月中的第几周:"+woy);
+	}
 
 }

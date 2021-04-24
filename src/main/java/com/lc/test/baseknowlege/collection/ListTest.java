@@ -5,6 +5,7 @@ import org.junit.jupiter.api.TestTemplate;
 
 import javax.servlet.http.HttpUtils;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * List集合测试
@@ -21,11 +22,46 @@ public class ListTest {
         list.add("query");
     }
 
+    @Test
+    public void addTest(){
+        AtomicLong totalGiftPrice = new AtomicLong(0);
+        Long price = 1000L;
+        System.out.println("totalGiftPrice.get() = " + totalGiftPrice.get());
+        System.out.println("totalGiftPrice.addAndGet(price) = " + totalGiftPrice.addAndGet(price));
 
+    }
+        
+    @Test
+    public void assembleStrTest(){
+        String key = "IEG_ANCHOR_CHALLENGE_TASK_HIT_AWARD:%s:%s:%s";
+        System.out.println("String.format(key,1,2) = " + String.format(key, 1, 2,""));
+        System.out.println("String.format(key,1,2,3) = " + String.format(key, 1, 2, 3));
+        System.out.println("String.format(\"aaaaa\",2,3) = " + String.format("aaaaa", 2, 3));
+    }
+    
     @Test
     public void indexOfTest(){
-        int index = list.indexOf("update2");
+        int index = list.indexOf("add");
         System.out.println("index = " + index);
+        System.out.println("list1 = " + list);
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            String next = iterator.next();
+            if (next.equals("update")){
+                iterator.remove();
+            }
+        }
+//        if (index>=0){
+//            list.remove(index);
+//        }
+        System.out.println("list2 = " + list);
+    }
+
+    @Test
+    public void strTest(){
+        String a = "update,delete,select";
+        String b = "select";
+        System.out.println("a.contains(b) = " + a.contains(b));
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.lc.test.baseknowlege.date;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.Test;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class ScheduleTest {
         System.out.println("dateFormat.format(new Date(System.currentTimeMillis())) = " + dateFormat.format(new Date(System.currentTimeMillis())));
     }
 
-
+    @Test
+    public void test(){
+        System.out.println("JSON.toJSONString(null) = " + JSON.toJSONString(null));
+        boolean b = null != null;
+        System.out.println("b = " + b);
+    }
 
 }

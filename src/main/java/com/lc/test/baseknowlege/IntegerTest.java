@@ -103,6 +103,17 @@ public class IntegerTest {
         System.out.println("result-->>"+result);
     }
 
+    @Test
+    public void intAndShortCompare(){
+        int a = 1;
+        short b = 1;
+        Short c = 1;
+        Long d = 1L;
+        System.out.println("a==b = " + (a == b));
+        System.out.println("a==c = " + (a == c));
+        System.out.println("c==d = " + (b == d));
+
+    }
 
 
 }
