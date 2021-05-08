@@ -1,9 +1,7 @@
 package com.lc.test.baseknowlege.collection;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
+import org.junit.Test;
 
-import javax.servlet.http.HttpUtils;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -20,6 +18,15 @@ public class ListTest {
         list.add("delete");
         list.add("update");
         list.add("query");
+    }
+
+    @Test
+    public void subListTest(){
+        List<String> strings = list.subList(0, 2);
+        strings.forEach(System.out::println);
+        System.out.println("==================");
+        list.forEach(System.out::println);
+
     }
 
     @Test

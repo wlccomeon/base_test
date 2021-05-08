@@ -1,16 +1,15 @@
 package com.lc.test.baseknowlege.date;
-import com.alibaba.fastjson.JSON;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.DateFormatUtils;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
-import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
-import	java.text.SimpleDateFormat;
-import java.time.ZoneId;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +29,14 @@ public class DateTest {
 	public static final String modifyDate = "2020-01-02 19:30:01";
 	public static final String  datePattern = "yyyy-MM-dd HH:mm:ss";
 
+	@Test
+	public void testDateTime(){
+		// 2019/08/07/ 新开奖池周期
+		long now = System.currentTimeMillis();
+		long todayStart = now - now % DateUtils.MILLIS_PER_DAY;
+		//东八区新的一天的零点需要加1天减去8个小时
+		long todayStartLocal = todayStart + DateUtils.MILLIS_PER_DAY - DateUtils.MILLIS_PER_HOUR * 8;
+	}
 
 	@Test
 	public void testDatePeroid(){
@@ -119,7 +126,7 @@ public class DateTest {
 	public void convertMillisToLocalDate(){
 		//2021-04-23 00:00:00
 		Long startMillis = 1619107200000L;
-		//2021-04-30 00:00:00
+		//2021-04-23 00:00:00
 		Long endMillis = 1619712000000L;
 		LocalDate startLocalDate = Instant.ofEpochMilli(startMillis).atZone(ZoneOffset.ofHours(8)).toLocalDate();
 		LocalDate endLocalDate = Instant.ofEpochMilli(startMillis).atZone(ZoneOffset.ofHours(8)).toLocalDate();
