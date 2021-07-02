@@ -1,26 +1,17 @@
 package com.lc.test.java8;
 
 import com.alibaba.fastjson.JSON;
-import com.lc.test.entity.User;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.beanutils.BeanUtils;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static java.util.Comparator.comparing;
 
 /**
  * @desc
@@ -42,7 +33,7 @@ import java.util.stream.Stream;
  * @author wlc
  * @date 2020-01-11 18:16:28
  */
-public class SteamApiTest {
+public class StreamApiTest {
 
 	private ThreadLocal<Map<String,String>> keyWords = new ThreadLocal<>();
 
@@ -109,12 +100,12 @@ public class SteamApiTest {
 		employees.stream().map(Employee::getName).filter(name->name.length()>2).forEach(System.out::println);
 		System.out.println("****************");
 		//case2:
-		strings.stream().map(SteamApiTest::fromStringToStream).forEach(s->{
+		strings.stream().map(StreamApiTest::fromStringToStream).forEach(s->{
 			s.forEach(System.out::println);
 		});
 		System.out.println("****************");
 		//flatMap(Function f)---接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有的流连接成一个流。实现的功能跟case2是一致的
-		strings.stream().flatMap(SteamApiTest::fromStringToStream).forEach(System.out::println);
+		strings.stream().flatMap(StreamApiTest::fromStringToStream).forEach(System.out::println);
 	}
 
 	/**
@@ -293,10 +284,13 @@ public class SteamApiTest {
 		//计算公司所有员工工资的总和
 		List<Employee> employees = getEmployees();
 		Optional<Double> salarySum = employees.stream().map(Employee::getSalary).reduce(Double::sum);
-		//下面的写法也可以
+		System.out.println("salarySum="+salarySum.get());
+		//下面的写法也可以,直接进行运算
 		Optional<Double> salarySum2 = employees.stream().map(Employee::getSalary).reduce((d1,d2)->d1+d2);
-		System.out.println("salarySum:"+salarySum.get());
-		System.out.println("salarySum2:"+salarySum2.get());
+		System.out.println("salarySum2="+salarySum2.get());
+		//还有一种写法
+		double salarySum3 = employees.stream().mapToDouble(Employee::getSalary).sum();
+		System.out.println("salarySum3 = " + salarySum3);
 	}
 
 	/**
@@ -508,8 +502,15 @@ public class SteamApiTest {
 		System.out.println("========排序之前============");
 		longList.forEach(System.out::println);
 		List<Long> collect = longList.stream().sorted(Comparator.comparing(Long::longValue,Comparator.reverseOrder())).collect(Collectors.toList());
+		System.out.println("========排序后原集合============");
+		longList.forEach(System.out::println);
 		System.out.println("=========排序之后============");
 		collect.forEach(System.out::println);
+
+		System.out.println("==========sort方法排序=========");
+		longList.sort(Comparator.comparing(Long::longValue,Comparator.reverseOrder()));
+		longList.forEach(System.out::println);
+
 	}
 
 	@Test

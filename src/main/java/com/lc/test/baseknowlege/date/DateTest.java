@@ -155,4 +155,37 @@ public class DateTest {
 		System.out.println("一个月中的第几周:"+woy);
 	}
 
+
+	/**
+	 * 时间字符串转为指定格式和时区的时间字符串
+	 * @param originTimeStr  原时间字符串
+	 * @param originFormat   原时间字符串格式
+	 * @param format         将要转换成的时间字符串格式
+	 * @param timeZone       时区
+	 * @return yyy-d
+	 */
+	public static String getDateStr(String originTimeStr,String originFormat, String format,TimeZone timeZone) {
+		String result = "";
+		try {
+			SimpleDateFormat df = new SimpleDateFormat(originFormat);
+			Date date = df.parse(originTimeStr);
+			SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+			dateFormat.setTimeZone(timeZone == null ? TimeZone.getTimeZone("GMT+8") : timeZone);
+			result = dateFormat.format(date);
+		}catch (Exception e){
+			e.printStackTrace();
+//			log.error("转换日期出错,参数originTimeStr:{},originFormat:{},format:{},timeZone:{}",originTimeStr,originFormat,format,timeZone);
+		}
+		return result;
+	}
+
+	@Test
+	public void test(){
+		Boolean a = null;
+		int b = 0;
+		if (b == 0 && a){
+			System.out.println("aaaa");
+		}
+	}
+
 }

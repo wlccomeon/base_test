@@ -1,8 +1,6 @@
 package com.lc.test.baseknowlege;
 
-import com.alibaba.fastjson.JSON;
 import com.lc.test.entity.User;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -48,6 +46,13 @@ public class StringTest {
         System.out.println("dd:"+dd);
         System.out.println("ee:"+ee);
 
+    }
+
+    @Test
+    public void testSubStr(){
+        String str = "https://test-img.justmi.cn/cover-template-tool/zip1621932981819/rightbg.png";
+        String substring = str.substring(0, str.lastIndexOf("/"));
+        System.out.println("substring = " + substring+"/");
     }
 
     /**

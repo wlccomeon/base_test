@@ -1,14 +1,23 @@
 package com.lc.test.baseknowlege.collection;
 
+import com.lc.test.entity.User;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * List集合测试
  * @author wlc
  */
+@Slf4j
 public class ListTest {
 
     private static List<String> list = new ArrayList<>();
@@ -18,6 +27,34 @@ public class ListTest {
         list.add("delete");
         list.add("update");
         list.add("query");
+    }
+
+    @Test
+    public void distinctTest(){
+        List<String> distinctList = list.stream().distinct().collect(Collectors.toList());
+        distinctList.forEach(System.out::println);
+    }
+
+    @Test
+    public void filterTest(){
+        List<String> collect = list.stream().filter(str -> "ddd".equals(str)).collect(Collectors.toList());
+        System.out.println("collect = " + collect);
+    }
+
+    @Test
+    public void copyTest(){
+        List<User> nowList = new ArrayList<>();
+        User user = new User();
+        user.setAddress("aaa");
+        user.setId(1);
+        nowList.add(user);
+
+        User user2 = new User();
+        user2.setAddress("bbb");
+        user2.setId(2);
+
+        BeanUtils.copyProperties(user2,user);
+        System.out.println("nowList = " + nowList);
     }
 
     @Test

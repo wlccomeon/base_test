@@ -23,8 +23,9 @@ public class StackTest {
         //确保t1线程首先执行
         Thread.sleep(1000);
         myStack.push(1);
-        System.out.println("1111 = " + 1111);
+        System.out.println("myStack.list = " + myStack.list);
         myStack.push(2);
+        System.out.println("myStack = " + myStack.list);
     }
 
 }

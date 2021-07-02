@@ -1,6 +1,7 @@
 package com.lc.test.baseknowlege.enums;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +13,10 @@ import java.util.List;
  */
 public class EnumTest {
 	public static void main(String[] args) {
+		Assert.notNull(null,"this object is null");
 		System.out.println(StatusEnum.STARTED.name());
 		String a = "{1,2,3}";
 		List<String> list = Arrays.asList(a.split(","));
+		System.out.println("StatusEnum.valueOf(\"aaa\") = " + StatusEnum.valueOf("aaa"));
 	}
 }
