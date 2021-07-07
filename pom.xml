@@ -192,7 +192,14 @@
             <version>4.12</version>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
         <!-- cglib的BeanCopier需要的依赖，，使用上Spring之后，这个就不用额外添加了 -->
 <!--        <dependency>-->
 <!--            <groupId>asm</groupId>-->
