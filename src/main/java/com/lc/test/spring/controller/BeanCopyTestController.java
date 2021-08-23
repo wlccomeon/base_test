@@ -1,4 +1,4 @@
-package com.lc.test.controller;
+package com.lc.test.spring.controller;
 
 import com.lc.test.entity.User;
 import com.lc.test.entity.UserDTO;

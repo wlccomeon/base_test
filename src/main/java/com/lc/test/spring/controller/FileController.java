@@ -1,4 +1,4 @@
-package com.lc.test.controller;
+package com.lc.test.spring.controller;
 
 import com.lc.test.utils.zip.PackageTypeEnum;
 import com.lc.test.utils.zip.Zip4jUtil;

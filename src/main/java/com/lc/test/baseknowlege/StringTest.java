@@ -1,8 +1,10 @@
 package com.lc.test.baseknowlege;
 
 import com.lc.test.entity.User;
+import lombok.Data;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -259,6 +261,10 @@ public class StringTest {
         //这种写法不是挺好的吗？
         String replace = s.replace("-","");
         System.out.println("replace-->>>"+replace);
+
+        String str = "2020-04-10";
+        String str1 = str.replace("-", "");
+        System.out.println("str1 = " + str1);
     }
 
     @Test
@@ -273,6 +279,8 @@ public class StringTest {
         System.out.println(url.substring(url.indexOf("loanContractFile:")+"loanContractFile:".length()));
         //根据loanContractFile:获得nplmnewweb:
         System.out.println(url.substring(0,url.indexOf("loanContractFile:")));
+        int a = 10086;
+        int b = 200;
     }
 
 }

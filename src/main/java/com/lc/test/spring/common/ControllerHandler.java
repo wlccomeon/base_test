@@ -1,7 +1,6 @@
-package com.lc.test.controller;
+package com.lc.test.spring.common;
 
 import com.lc.test.common.ResponseResult;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.FieldError;
