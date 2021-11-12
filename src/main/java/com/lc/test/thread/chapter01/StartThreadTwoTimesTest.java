@@ -32,8 +32,8 @@ public class StartThreadTwoTimesTest {
 		thread.start();
 
 		//result:
-		//java.lang.IllegalThreadStateException
-		//	at java.lang.Thread.start(Thread.java:708)
+		//java.java.lang.IllegalThreadStateException
+		//	at java.java.lang.Thread.start(Thread.java:708)
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class StartThreadTwoTimesTest {
 		thread.start();
 
 		//result:
-		//java.lang.IllegalThreadStateException
-		//	at java.lang.Thread.start(Thread.java:708)
+		//java.java.lang.IllegalThreadStateException
+		//	at java.java.lang.Thread.start(Thread.java:708)
 	}
 }

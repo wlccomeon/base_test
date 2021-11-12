@@ -1,10 +1,12 @@
 package com.lc.test.java8;
 
 import com.alibaba.fastjson.JSON;
+import com.lc.test.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,12 +54,26 @@ public class StreamApiTest {
 		int[] arrayData = {1,2,3,4,65};
 		IntStream intStream = Arrays.stream(arrayData);
 		//创建一个泛型Stream
-		Employee emp1 = new Employee(103, "白永祥", 39, 1220.02,true);
-		Employee emp2 = new Employee(104, "卢冰伟", 28, 20388.08,true);
+		User user = new User();
+		Employee emp1 = new Employee(103, "白永祥", 39, 1220.02,true,user);
+		Employee emp2 = new Employee(104, "卢冰伟", 28, 20388.08,true,user);
 		Employee[] emps = new Employee[]{emp1,emp2};
 		Stream<Employee> employeeStream = Arrays.stream(emps);
 	//方式三：通过Stream的of()方法
 		Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5, 6, 7);
+	}
+
+	@Test
+	public void subCopyTest(){
+		List<Employee> employees = getEmployees();
+		List<EmployeeSub> subList = new ArrayList<>();
+		for (Employee employee : employees) {
+			EmployeeSub sub = new EmployeeSub();
+			BeanUtils.copyProperties(employee,sub);
+			sub.setFilmName("a");
+			subList.add(sub);
+		}
+		System.out.println("JSON.toJSONString(subList) = " + JSON.toJSONString(subList));
 	}
 
 	/**
@@ -76,8 +92,9 @@ public class StreamApiTest {
 		employees.stream().skip(3).forEach(System.out::println);
 		System.out.println("*************");
 		//distinct---筛选，通过流所生成的元素的hashcode()和equals()去除重复元素
-		employees.add(new Employee(106,"常程",42,6030.66,true));
-		employees.add(new Employee(106,"常程",42,6030.66,true));
+		User user = new User();
+		employees.add(new Employee(106,"常程",42,6030.66,true,user));
+		employees.add(new Employee(106,"常程",42,6030.66,true,user));
 		employees.stream().distinct().forEach(System.out::println);
 	}
 
@@ -179,7 +196,14 @@ public class StreamApiTest {
 
 	@Test
 	public void booleanSortTest(){
-
+		List<Integer> a = new ArrayList<>();
+		List<Integer> b = new ArrayList<>();
+		List<Integer> c = new ArrayList<>();
+		c.addAll(b);
+		System.out.println("JSON.toJSONString(c) = " + JSON.toJSONString(c));
+		c.addAll(a);
+		System.out.println("JSON.toJSONString(c) = " + JSON.toJSONString(c));
+		
 	}
 
 	/**
@@ -328,13 +352,15 @@ public class StreamApiTest {
 	 */
 	public List<Employee> getEmployees(){
 		List<Employee> data = new ArrayList<>();
-		data.add(new Employee(101,"雷军",40,20030.00,true));
-		data.add(new Employee(102,"余雷军",20,30200.00,true));
+		User user = new User();
+		user.setName("lc");
+		data.add(new Employee(101,"雷军",40,20030.00,true,user));
+		data.add(new Employee(102,"余雷军",20,30200.00,true,user));
 		//实际是白永祥，这里随便写的
-		data.add(new Employee(104,"卢冰伟",40,20388.08,true));
-		data.add(new Employee(103,"白雷军",40,1220.02,true));
-		data.add(new Employee(105,"库克",68,120030.99,false));
-		data.add(new Employee(106,"常程",42,6030.66,true));
+		data.add(new Employee(104,"卢冰伟",40,20388.08,true,user));
+		data.add(new Employee(103,"白雷军",40,1220.02,true,user));
+		data.add(new Employee(105,"库克",68,120030.99,false,user));
+		data.add(new Employee(106,"常程",42,6030.66,true,user));
 		return data;
 	}
 
@@ -393,6 +419,15 @@ public class StreamApiTest {
 		private Integer age;
 		private double salary;
 		private Boolean isChinese;
+		private User user;
+	}
+
+	/**定义一个内部类*/
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	class EmployeeSub extends Employee{
+		private String filmName;
 	}
 
 	@Test

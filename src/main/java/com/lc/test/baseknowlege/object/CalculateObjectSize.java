@@ -23,7 +23,7 @@ public class CalculateObjectSize {
         //s = com.lc.test.baseknowlege.copy.Person object internals:
         // OFFSET  SIZE                                TYPE DESCRIPTION                               VALUE
         //      0    12                                     (object header)                           N/A
-        //     12     4                    java.lang.String Person.name                               N/A
+        //     12     4                    java.java.lang.String Person.name                               N/A
         //     16     4   com.lc.test.baseknowlege.copy.Dog Person.pet                                N/A
         //     20     4                                     (loss due to the next object alignment)
         //Instance size: 24 bytes
@@ -37,15 +37,15 @@ public class CalculateObjectSize {
         //      0     4                      (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)
         //      4     4                      (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
         //      8     4                      (object header)                           21 cd 00 20 (00100001 11001101 00000000 00100000) (536923425)
-        //     12     4    java.lang.Integer AllTypeEntity.id                          223
-        //     16     4     java.lang.Double AllTypeEntity.weight                      null
-        //     20     4      java.lang.Float AllTypeEntity.height                      20.8
-        //     24     4       java.lang.Long AllTypeEntity.createTime                  1608086720103
-        //     28     4      java.lang.Short AllTypeEntity.age                         10
-        //     32     4       java.lang.Byte AllTypeEntity.status                      1
-        //     36     4    java.lang.Boolean AllTypeEntity.available                   true
-        //     40     4     java.lang.String AllTypeEntity.name                        (object)
-        //     44     4   java.lang.String[] AllTypeEntity.array                       [(object), (object), (object)]
+        //     12     4    java.java.lang.Integer AllTypeEntity.id                          223
+        //     16     4     java.java.lang.Double AllTypeEntity.weight                      null
+        //     20     4      java.java.lang.Float AllTypeEntity.height                      20.8
+        //     24     4       java.java.lang.Long AllTypeEntity.createTime                  1608086720103
+        //     28     4      java.java.lang.Short AllTypeEntity.age                         10
+        //     32     4       java.java.lang.Byte AllTypeEntity.status                      1
+        //     36     4    java.java.lang.Boolean AllTypeEntity.available                   true
+        //     40     4     java.java.lang.String AllTypeEntity.name                        (object)
+        //     44     4   java.java.lang.String[] AllTypeEntity.array                       [(object), (object), (object)]
         //     48     4       java.util.List AllTypeEntity.props                       (object)
         //     52     4        java.util.Map AllTypeEntity.exts                        (object)
         //Instance size: 56 bytes
@@ -64,8 +64,8 @@ public class CalculateObjectSize {
         //     36     2                short AllTypeEntity.age                         10
         //     38     1                 byte AllTypeEntity.status                      1
         //     39     1              boolean AllTypeEntity.available                   true
-        //     40     4     java.lang.String AllTypeEntity.name                        (object)
-        //     44     4   java.lang.String[] AllTypeEntity.array                       [(object), (object), (object)]
+        //     40     4     java.java.lang.String AllTypeEntity.name                        (object)
+        //     44     4   java.java.lang.String[] AllTypeEntity.array                       [(object), (object), (object)]
         //     48     4       java.util.List AllTypeEntity.props                       (object)
         //     52     4        java.util.Map AllTypeEntity.exts                        (object)
         //Instance size: 56 bytes

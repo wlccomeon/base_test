@@ -54,7 +54,7 @@ class Test{
  */
 class Test1{
 	public static void main(String[] args) {
-		//会抛出  java.lang.NullPointerException 异常
+		//会抛出  java.java.lang.NullPointerException 异常
 		method(null);
 	}
 	public static void method(String param) {

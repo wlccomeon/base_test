@@ -29,6 +29,18 @@ public class ListTest {
         list.add("query");
     }
 
+    /**
+     * 取两个list的交集
+     */
+    @Test
+    public void retainTest(){
+        List<String> myList = new ArrayList<>();
+        myList.addAll(Arrays.asList("add","select","query"));
+        list.retainAll(myList);
+        //result ： add、query
+        System.out.println("list = " + list);
+    }
+
     @Test
     public void distinctTest(){
         List<String> distinctList = list.stream().distinct().collect(Collectors.toList());

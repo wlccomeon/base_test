@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,10 +13,22 @@ import java.util.List;
  */
 public class ArrayTest {
     public static void main(String[] args) {
-        testBubboSort2();
-        testBubboSort();
+        Integer a = null;
+        System.out.println("(null==0) = " + (a==0));
+
+//        testBubboSort2();
+//        testBubboSort();
 //        testArrayAndSplit();
 //        testArrayContains();
+        testEmptyList();
+    }
+
+    public static void testEmptyList(){
+        List<Long>  emptyList = new ArrayList<>();
+        //直接NPE错误
+        for (Long aLong : emptyList) {
+            System.out.println("aLong = " + aLong.longValue());
+        }
     }
 
 

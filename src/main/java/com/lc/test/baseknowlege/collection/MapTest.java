@@ -41,7 +41,7 @@ public class MapTest {
         userList.add(user3);
         userList.add(user5);
 
-        //因为张三有多个address，会报java.lang.IllegalStateException: Duplicate key 丰台 错误
+        //因为张三有多个address，会报java.java.lang.IllegalStateException: Duplicate key 丰台 错误
 //        Map<String, String> mapResult0 = userList.stream().collect(
 //                Collectors.toMap(User::getName, User::getAddress)
 //        );
