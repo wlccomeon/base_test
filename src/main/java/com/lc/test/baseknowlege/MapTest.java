@@ -1,8 +1,13 @@
 package com.lc.test.baseknowlege;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.lc.test.entity.User;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapTest {
@@ -128,6 +133,29 @@ public class MapTest {
 			 4->43pp
 			 8->888
 			 */
+	}
+
+	/**
+	 * 使用typeReference
+	 */
+	@Test
+	public void testJsonToMap(){
+		//构造参数
+		Map<String, List<User>> dataMap = new HashMap<>();
+		User user1 = new User();
+		user1.setName("lc1");
+		User user2 = new User();
+		user2.setName("lc2");
+		List<User> users = new ArrayList<>();
+		users.add(user1);
+		users.add(user2);
+		dataMap.put("1",users);
+		String jsonStr = JSON.toJSONString(dataMap);
+
+		//解析
+		Map<String, List<User>> map = JSON.parseObject(jsonStr, new TypeReference<Map<String, List<User>>>() {});
+
+		System.out.println("map.toString() = " + map.toString());
 	}
 
 }

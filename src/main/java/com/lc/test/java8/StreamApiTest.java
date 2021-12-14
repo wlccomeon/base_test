@@ -207,6 +207,26 @@ public class StreamApiTest {
 	}
 
 	/**
+	 * 默认是按照从小到大排序的
+	 */
+	@Test
+	public void testNumberSort(){
+		List<Employee> employees = getEmployees();
+		List<Employee> collect = employees.stream().sorted(comparing(Employee::getAge)).collect(Collectors.toList());
+		System.out.println("collect = " + JSON.toJSONString(collect));
+	}
+
+	/**
+	 * 默认是按照由false到true排序的
+	 */
+	@Test
+	public void testBooleanSort(){
+		List<Employee> employees = getEmployees();
+		List<Employee> collect = employees.stream().sorted(comparing(Employee::getIsChinese)).collect(Collectors.toList());
+		System.out.println("collect = " + JSON.toJSONString(collect));
+	}
+
+	/**
 	 * 复杂排序：多个条件
 	 */
 	@Test

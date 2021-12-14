@@ -28,6 +28,37 @@ public class StringTest {
     }
 
     /**
+     * 连续六位数字（阿拉伯数字、汉语数字）全部用（*）代替
+     */
+    @Test
+    public void regexTest(){
+        String strCN = "一百八十万九千九百我们就八七六五四是如5231265432此的奖励";
+        //连续的6个阿拉伯数字或者中文数字替换为*
+        String str5 = strCN.replaceAll("[\\d一二三四五六七八九十壹贰叁肆伍陆柒捌玖拾百佰千仟万亿]{6}", "******");
+        System.out.println("str5 = " + str5);
+    }
+
+    /**
+     * 删除空格、制表符等
+     */
+    @Test
+    public void testDelBlank(){
+        String str = "   Hello Word!    ";
+
+        //方法1：String.trim();trim()是去掉首尾空格
+        System.out.println("1:"+str.trim());
+        //方法2：str.replaceAll(" ", ""); 去掉所有空格，包括首尾、中间
+        String str2 = str.replaceAll(" ", "");
+        System.out.println("2:"+str2);
+        //方法3：或者replaceAll(" +","");  去掉所有空格，包括首尾、中间
+        String str3 = str.replaceAll(" +", "");
+        System.out.println("3:"+str3);
+        //方法4：、str = .replaceAll("\\s*", "");可以替换大部分空白字符， 不限于空格 ；           \s 可以匹配空格、制表符、换页符等空白字符的其中任意一个。
+        String str4 = str.replaceAll("\\s*", "");
+        System.out.println("4:"+str4);
+    }
+
+    /**
      * 测试字符串与数字相加的结果
      */
     public static void testStringAddInteger(){

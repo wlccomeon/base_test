@@ -13,10 +13,12 @@ import java.util.List;
  */
 public class EnumTest {
 	public static void main(String[] args) {
-		Assert.notNull(null,"this object is null");
-		System.out.println(StatusEnum.STARTED.name());
-		String a = "{1,2,3}";
-		List<String> list = Arrays.asList(a.split(","));
-		System.out.println("StatusEnum.valueOf(\"aaa\") = " + StatusEnum.valueOf("aaa"));
+//		Assert.notNull(null,"this object is null");
+//		System.out.println(StatusEnum.STARTED.name());
+//		String a = "{1,2,3}";
+//		List<String> list = Arrays.asList(a.split(","));
+//		System.out.println("StatusEnum.valueOf(\"aaa\") = " + StatusEnum.valueOf("aaa"));
+		StatusEnum waitting = StatusEnum.valueOf("waitting".toUpperCase());
+		System.out.println("waitting = " + waitting);
 	}
 }
