@@ -415,6 +415,45 @@ public class StreamApiTest {
 		targetList.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
 	}
 
+	@Test
+	public void List2MapByLambda(){
+		List<User> userList = new ArrayList<>();
+		User user1 = new User();
+		user1.setName("张三");
+		user1.setAddress("丰台");
+		User user2 = new User();
+		user2.setName("李四");
+		user2.setAddress("丛台");
+		User user3 = new User();
+		user3.setName("王五");
+		user3.setAddress("邢台");
+		User user5 = new User();
+		user5.setName("张三");
+		user5.setAddress("兰陵");
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user3);
+		userList.add(user5);
+
+		//因为张三有多个address，会报java.java.lang.IllegalStateException: Duplicate key 丰台 错误
+//        Map<String, String> mapResult0 = userList.stream().collect(
+//                Collectors.toMap(User::getName, User::getAddress)
+//        );
+//        System.out.println("mapResult0 = " + mapResult0.toString());
+
+		Map<String, String> mapResult1 = userList.stream().collect(
+				Collectors.toMap(User::getName, User::getAddress, (n1, n2) -> n1+n2)
+		);
+		//mapResult1 = {李四=丛台, 张三=丰台兰陵, 王五=邢台}
+		System.out.println("mapResult1 = " + mapResult1.toString());
+
+		Map<String, String> mapResult2 = userList.stream().collect(
+				Collectors.toMap(User::getName, User::getAddress, (n1, n2) -> n1)
+		);
+		//mapResult1 = {李四=丛台, 张三=丰台, 王五=邢台}
+		System.out.println("mapResult2 = " + mapResult2.toString());
+	}
+
 	/**
 	 * 遍历一个list中的元素并赋值
 	 */
