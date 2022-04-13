@@ -1,4 +1,4 @@
-package com.lc.test.proxy;
+package com.lc.test.designpattern.proxy;
 
 import com.alibaba.fastjson.JSON;
 

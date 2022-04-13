@@ -1,6 +1,9 @@
 package com.lc.test.baseknowlege;
 
+import com.lc.test.spring.controller.FileController;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by wlc on 2017/8/21 0021.
@@ -112,8 +115,104 @@ public class IntegerTest {
         System.out.println("a==b = " + (a == b));
         System.out.println("a==c = " + (a == c));
         System.out.println("c==d = " + (b == d));
-
+        //a==b = true
+        //a==c = true
+        //c==d = true
     }
 
+    @Test
+    public void swapInt(){
+        Integer a = 1;
+        Integer b = 2;
+//        System.out.println("before swap:a="+a+",b="+b);
+//        swap1(a,b);
+//        System.out.println("after swap:a="+a+",b="+b);
+        //结果：
+        //before swap:a=1,b=2
+        //swap1方法内：a=2,b=1
+        //after swap:a=1,b=2
+
+//        System.out.println("before swap:a="+a+",b="+b);
+//        swap2(a,b);
+//        System.out.println("after swap:a="+a+",b="+b);
+        //结果：
+        //before swap:a=1,b=2
+        //swap2方法内：a=2,b=2
+        //after swap:a=2,b=2
+
+        System.out.println("before swap:a="+a+",b="+b);
+        swap3(a,b);
+        System.out.println("after swap:a="+a+",b="+b);
+        //结果：
+        //before swap:a=1,b=2
+        //swap2方法内：a=2,b=2
+        //after swap:a=2,b=2
+    }
+
+    /**
+     * 交换两个数字的值,Integer是8大基本数据类型，内部的value为final类型，
+     * 为值传递，非引用传递，只能在该方法内部进行数字交换，不能影响到调用方
+     * @param num1
+     * @param num2
+     */
+    private void swap1(Integer num1,Integer num2){
+        Integer temp = null;
+        temp = num1;
+        num1 = num2;
+        num2 = temp;
+        System.out.println("swap1方法内：a="+num1+",b="+num2);
+    }
+
+    /**
+     * 交换两个数字的值
+     * 这个方法中使用了反射来操作Integer的值，不过需要注意的是，如果num1和num2处于-128-127之间的话，交换的值可能会出问题
+     * @param num1
+     * @param num2
+     */
+    private void swap2(Integer num1,Integer num2) {
+        try {
+            //获取Integer中的value字段,并允许重新赋值
+            Field field = Integer.class.getDeclaredField("value");
+            field.setAccessible(true);
+            //num1指针指向的位置为IntegerCache.cache[i + (-IntegerCache.low)]即[1+128]=[129]的位置为1
+            int temp = num1.intValue();
+            //将num1也就是第[129]位置上的值变为num2指针所指向的值2。
+            field.set(num1,num2);
+            //此时temp1指针所指向的位置跟num1指针指向的位置是一样的，已经变为了2，所以，这里给num2指针指向的位置[2+128]=[130]赋值之后num2变成了2.
+            field.set(num2,temp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("swap2方法内：a="+num1+",b="+num2);
+    }
+
+    /**
+     * 交换两个数字的值
+     * 这个方法中使用了反射来操作Integer的值，不过需要注意的是，如果num1和num2处于-128-127之间的话，交换的值可能会出问题
+     * 解决方法：1.使用new Integer方式，2.使用setInt方法
+     * @param num1
+     * @param num2
+     */
+    private void swap3(Integer num1,Integer num2) {
+        try {
+            //获取Integer中的value字段,并允许重新赋值
+            Field field = Integer.class.getDeclaredField("value");
+            field.setAccessible(true);
+            //num1指针指向的位置为IntegerCache.cache[i + (-IntegerCache.low)]即[1+128]=[129]的位置为1
+            int temp = num1.intValue();
+            //将num1也就是第[129]位置上的值变为num2指针所指向的值2。
+            field.set(num1,num2);
+            //此时temp1指针所指向的位置跟num1指针指向的位置是一样的，已经变为了2，所以，这里给num2指针指向的位置[2+128]=[130]赋值之后num2变成了2.
+//            field.set(num2,temp);
+            //解决方法1：使用new的方式，就不会使用Integer的缓存了
+//            field.set(num2,new Integer(temp));
+            //解决方法2：或者使用setInt方法，不会产生装箱拆箱
+            field.setInt(num2,temp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("swap3方法内：a="+num1+",b="+num2);
+
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.lc.test.proxy;
+package com.lc.test.designpattern.proxy;
 
 public interface IMath {
     int add(int n1,int n2);

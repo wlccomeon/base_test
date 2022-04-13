@@ -15,6 +15,7 @@ public class User implements Observer {
         this.name = name;
     }
 
+    @Override
     public void update(String message) {
         this.message = message;
         read();

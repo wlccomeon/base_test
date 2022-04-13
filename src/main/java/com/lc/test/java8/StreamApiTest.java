@@ -402,17 +402,13 @@ public class StreamApiTest {
 	public void copyList(){
 		List<Employee> originList = getEmployees();
 		originList.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
-		List<Employee> targetList = new ArrayList<>();
-		targetList = originList.stream().map(employee -> {
-			Employee employee1 = new Employee();
-			try {
-//				BeanUtils.copyProperties(employee1, employee);
-			} catch (Exception e) {
+		for (Employee employee : originList) {
+			if (employee.getId() == 101){
+				employee.setName("雷军gaga");
 			}
-			return employee1;
-		}).collect(Collectors.toList());
+		}
 		//结果不正确。。。
-		targetList.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
+		originList.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
 	}
 
 	@Test
@@ -464,6 +460,10 @@ public class StreamApiTest {
 		employees.stream().forEach(employee -> {
 			employee.setAge(100);
 		});
+		System.out.println("================================");
+		employees.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
+		employees.add(new Employee());
+		employees.sort(Comparator.comparing(Employee::getAge,Comparator.reverseOrder()));
 		System.out.println("================================");
 		employees.stream().forEach(employee -> System.out.println(JSON.toJSONString(employee)));
 	}

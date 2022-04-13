@@ -1,10 +1,27 @@
-package com.lc.test.proxy;
+package com.lc.test.designpattern.proxy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Test {
 
     public static void main(String[] args) {
         testCglibProxy();
         testJdkProxy();
+//        testJdkProxy0();
+    }
+
+    public static void testJdkProxy0(){
+        List myList = (List) new JdkDynamicProxy().getProxyObject(new ArrayList<>());
+        myList.add("aa");
+        myList.add("bb");
+        //执行结果：
+        //睡眠时间：445
+        //jdk动态代理方法参数：["aa"]
+        //共用时：501
+        //睡眠时间：245
+        //jdk动态代理方法参数：["bb"]
+        //共用时：246
     }
 
     public static void testJdkProxy(){
