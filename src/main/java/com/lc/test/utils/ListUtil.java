@@ -1,8 +1,7 @@
 package com.lc.test.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @desc list 工具类
@@ -50,5 +49,13 @@ public class ListUtil {
 			}
 		}
 		return newList;
+	}
+
+
+	public static void main(String[] args) {
+		List<String> data = Arrays.asList("1","2",null,"3");
+		List<String> filterResult = data.stream().filter(p -> Objects.nonNull(p)).collect(Collectors.toList());
+		System.out.println("filterResult = " + filterResult);
+
 	}
 }

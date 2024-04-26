@@ -20,6 +20,19 @@ public class IntegerTest {
     }
 
     /**
+     * int的除法是向下取整，也就是舍去小数点
+     */
+    @Test
+    public void testIntegerDivide(){
+        Integer a = 10;
+        Integer b = 3;
+        Integer c = a/b;
+        System.out.println("c = " + c);
+        Integer d = b/a;
+        System.out.println("d = " + d);
+    }
+
+    /**
      * short、long、int之间的隐式(+=的写法，编译器会默认强制转换为+左边的类型)和强制转换(=a+b需要手动强制转换为左边的类型)
      */
     @Test
@@ -39,6 +52,12 @@ public class IntegerTest {
         char g = 'a'; //单引号表示字符常量
     }
 
+    @Test
+    public void testEquals(){
+        Double a = 0.0;
+        Double b = 0.0;
+        System.out.println("a.equals(b) = " + a.equals(b));
+    }
 
     /**
      * Integer默认情况下存在一个-128到127之间的缓存，在这个区间内的数值，会直接从缓存中取。

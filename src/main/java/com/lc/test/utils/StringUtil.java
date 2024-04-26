@@ -5,7 +5,7 @@ package com.lc.test.utils;
  * @description
  * @date 2021/1/7 0007 14:27
  */
-public class StringUtils {
+public class StringUtil {
     /**
      * 将字符串的首字母转大写
      * @param str 需要转换的字符串

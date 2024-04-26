@@ -1,5 +1,7 @@
 package com.lc.test.thread.lock.demo;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +37,40 @@ public class ReenterLock {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Test
+	public void fairLockTest(){
+		Lock lock = new ReentrantLock(true);
+		//结果：
+		//当前线程：Thread-1
+		//当前线程：Thread-2
+		//当前线程：Thread-3
+		//当前线程：Thread-1
+		//当前线程：Thread-2
+		//当前线程：Thread-3
+//		Lock lock = new ReentrantLock();
+		//结果：
+		//当前线程：Thread-1
+		//当前线程：Thread-1
+		//当前线程：Thread-2
+		//当前线程：Thread-2
+		//当前线程：Thread-3
+		//当前线程：Thread-3
+		for (int i = 0; i < 3; i++) {
+			new Thread(() -> {
+				for (int j = 0; j < 2; j++) {
+					lock.lock();
+					System.out.println("当前线程：" + Thread.currentThread()
+							.getName());
+					lock.unlock();
+				}
+			}).start();
+		}
+		//不要被第一个for循环给迷惑了，因为多线程中，i=0,i=1,i=2执行不一定是按照顺序来的
+		//从上述结果可以看出，使用公平锁线程获取锁的顺序是：A -> B -> C -> A -> B -> C，也就是按顺序获取锁。
+		// 而非公平锁，获取锁的顺序是 A -> A -> B -> B -> C -> C，原因是所有线程都争抢锁时，因为当前执行线程处于活跃状态，
+		// 其他线程属于等待状态（还需要被唤醒），所以当前线程总是会先获取到锁，所以最终获取锁的顺序是：A -> A -> B -> B -> C -> C。
 	}
 
 	public static void reEntrantLockTest(){

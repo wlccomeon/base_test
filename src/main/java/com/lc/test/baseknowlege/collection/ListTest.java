@@ -1,5 +1,6 @@
 package com.lc.test.baseknowlege.collection;
 
+import com.alibaba.fastjson.JSON;
 import com.lc.test.entity.User;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,25 @@ public class ListTest {
         list.retainAll(myList);
         //result ： add、query
         System.out.println("list = " + list);
+    }
+
+    @Test
+    public void changeTest(){
+        List<User> originUsers = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setName("wlc"+i);
+            originUsers.add(user);
+        }
+        List<User> newUsers = new ArrayList<>();
+        newUsers.addAll(originUsers);
+        System.out.println("JSON.toJSONString(newUsers) first = " + JSON.toJSONString(newUsers));
+        System.out.println("originUsers = " + JSON.toJSONString(originUsers));
+        originUsers.remove(0);
+        System.out.println("JSON.toJSONString(newUsers) second= " + JSON.toJSONString(newUsers));
+        System.out.println("JSON.toJSONString(originUsers) = " + JSON.toJSONString(originUsers));
+        //结果，addall方法加入的数据不会受原始数据影响
     }
 
     @Test

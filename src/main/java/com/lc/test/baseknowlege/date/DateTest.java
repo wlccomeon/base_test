@@ -1,10 +1,13 @@
 package com.lc.test.baseknowlege.date;
 
+import com.lc.test.entity.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +51,99 @@ public class DateTest {
 				+ ";days:" + p.getDays() + ";hours:" + p.getHours()
 				+ ";minutes:" + p.getMinutes() + ";seconds:" + p.getSeconds()
 				+ ";mills:" + p.getMillis());
+	}
+
+	/**
+	 * 获取两个日期之间的月数，不够1月的按0。即向下取整，去掉小数。
+	 */
+	@Test
+	public void testMonthsBetweenYears(){
+		DateTime dt1 = new DateTime(2006, 03, 15, 17, 58);
+		DateTime dt2 = new DateTime(2024, 03, 07, 19, 30);
+		DateTime begin = new DateTime(dt1, DateTimeZone.forID("+08:00"));
+		DateTime end = new DateTime(dt2, DateTimeZone.forID("+08:00"));
+		Period period = new Period(begin, end, PeriodType.months());
+		System.out.println("period.getMonths() = " + period.getMonths());
+	}
+
+	@Test
+	public void testFormat(){
+		Date a = testGetYearMonth("11010120000728360X");
+		System.out.println("a = " + a);
+		Date b = testGetYearMonth("513701930509101");
+		System.out.println("b = " + b);
+	}
+	public Date testGetYearMonth(String idNO){
+		if (StringUtils.isBlank(idNO) || (idNO.length() != 15 && idNO.length() != 18)){
+			return null;
+		}
+		try {
+			String subStr = null;
+			//15位身份证截取7到12位字符
+			//新身份证截取第7到14位字符
+			if (idNO.length() == 15){
+				subStr = "19"+idNO.substring(6, 12);
+			}else{
+				subStr = idNO.substring(6, 14);
+			}
+			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+			return sf.parse(subStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Test
+	public void getPeriod(){
+		DateTime begin = new DateTime(2019, 12, 25, 17, 58);
+		DateTime end = new DateTime(2008, 06, 02, 19, 30);
+		Period period = new Period(begin, end, PeriodType.months());
+		System.out.println("period.getMonths() = " + Math.abs(period.getMonths()));
+	}
+
+	/**
+	 * 增加1年，并判断是否出现诸如2023年2月29日的异常情况
+	 */
+	@Test
+	public void testAddDate(){
+		//String strTime = "2024-02-29 17:32:05";
+		String strTime = "2023-02-28 17:32:05";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = null;
+		try {
+			date = simpleDateFormat.parse(strTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		//获取时间加一年或加一月或加一天
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date); //设置起时间
+		cal.add(Calendar.YEAR, 1); //增加一年
+		//cal.add(Calendar.DATE, n); //增加一天
+		//cal.add(Calendar.DATE, -10); //减10天
+		//cal.add(Calendar.MONTH, n); //增加一个月
+
+		String strTime2 = simpleDateFormat.format(cal.getTime());
+		System.out.println("结果为： " + strTime2);
+	}
+
+	@Test
+	public void testObj() throws Exception{
+
+		User user = new User();
+		user.setAddress("AA");
+		String address = user.getAddress();
+		System.out.println("address = " + address);
+		System.out.println("user.getAddress() = " + user.getAddress());
+		User newUser = new User();
+		newUser.setAddress("newUser AA");
+		//newUser覆盖掉user
+		BeanUtils.copyProperties(newUser,user);
+		System.out.println("================");
+		System.out.println("address = " + address);
+		System.out.println("user.getAddress() = " + user.getAddress());
 	}
 
 	/**

@@ -96,6 +96,9 @@ public class StreamApiTest {
 		employees.add(new Employee(106,"常程",42,6030.66,true,user));
 		employees.add(new Employee(106,"常程",42,6030.66,true,user));
 		employees.stream().distinct().forEach(System.out::println);
+		//查询工资小于1万并且将结果相加
+		Double aDouble = employees.stream().filter(employee -> employee.getSalary() < 10000).map(Employee::getSalary).reduce((x, y) -> x + y).orElse(0D);
+		System.out.println("aDouble = " + aDouble);
 	}
 
 	/**

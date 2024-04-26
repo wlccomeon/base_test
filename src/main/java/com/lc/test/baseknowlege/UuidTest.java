@@ -40,5 +40,18 @@ public class UuidTest {
 		private String b;
 	}
 
+	@Test
+	public void tryCatchTest(){
+		try {
+//			int a = 1/0;
+		}catch (Exception e){
+			try {
+				int b = 1/0;
+			}catch (Exception ex){
+				ex.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+	}
 
 }

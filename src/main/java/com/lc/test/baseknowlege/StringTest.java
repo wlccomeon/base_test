@@ -1,13 +1,14 @@
 package com.lc.test.baseknowlege;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.base.Joiner;
 import com.lc.test.entity.User;
 import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StringTest {
 
@@ -26,6 +27,19 @@ public class StringTest {
 //        testStringCompare();
         testStringAddInteger();
     }
+
+    /**
+     * 将一个组合按照指定字符合并为一行字符串
+     */
+    @Test
+    public void collectionJoin(){
+
+        List<String> strList = Arrays.asList("A", "B", "C");
+        String sql = "select * from crdt_limit_approve where CRDT_ID in('" + Joiner.on("','").join(strList) + "')";
+        System.out.println("sql = " + sql);
+    }
+
+
 
     /**
      * 连续六位数字（阿拉伯数字、汉语数字）全部用（*）代替
@@ -67,9 +81,9 @@ public class StringTest {
         System.out.println(a+5);
         System.out.println(b+32);
     }
-
-    public static void testSubString(){
-        String aa = ",haha,lc";
+    @Test
+    public void testSubString(){
+        String aa = "2,haha,lc";
         String bb = aa.substring(aa.indexOf(",")+1,aa.length());
         String cc = aa.substring(0,aa.indexOf(","));
         int dd = aa.indexOf(",");
@@ -78,7 +92,23 @@ public class StringTest {
         System.out.println("cc:"+cc);
         System.out.println("dd:"+dd);
         System.out.println("ee:"+ee);
+        String ff = aa.substring(0,1);
+        System.out.println("ff = " + ff);
+        String[] array = {"x","y","z"};
+        List<String> myArray = Arrays.asList(array);
+        System.out.println("JSON.toJSONString(myArray) = " + JSON.toJSONString(myArray));
 
+        List<String> strings = Arrays.asList(aa.split(","));
+        System.out.println("strings = " + strings);
+        List<String> collect = Arrays.stream(aa.split(",")).collect(Collectors.toList());
+        System.out.println("collect = " + collect);
+
+        List<String> finalList = new ArrayList<>();
+        String[] split = aa.split(",");
+        for (String s : split) {
+            finalList.add(s);
+        }
+        System.out.println("finalList = " + JSON.toJSONString(finalList));
     }
 
     @Test

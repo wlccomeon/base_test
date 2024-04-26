@@ -1,0 +1,10 @@
+{
+  "msg":"success",
+  "data":{
+    "userId":"12363324",
+    "collegeName":"\u8BA1\u7B97\u673A\u5B66\u9662",
+    "className":"\u8F6F\u4EF6\u4E00\u73ED",
+    "1": "\u6B21\u4EFB\u52A1\u65E0\u6CD5\u5904\u7406\uFF0C\u4EFB\u52A1\u5904\u7406\u4EBA\u4E0D\u4E00\u81F4",
+    "2": "\u8BE5\u4EFB\u52A1taskId:{0}\u5DF2\u88AB\u7B7E\u6536"
+  }
+}
