@@ -26,6 +26,8 @@ public class BigDecimalTest {
             System.out.println("\"正确\" = " + "正确");
         }
     }
+
+
     @Test
     public void testZero(){
         BigDecimal a = new BigDecimal("0.200");
@@ -38,6 +40,17 @@ public class BigDecimalTest {
         BigDecimal a = new BigDecimal("910");
         BigDecimal b = new BigDecimal("3667.52");
         BigDecimal result = a.divide(b,10,RoundingMode.HALF_UP);
+        System.out.println("result = " + result);
+        Double c = 500.49;
+        BigDecimal d = BigDecimal.valueOf(c);
+        BigDecimal e = d.divide(BigDecimal.valueOf(10000),4,RoundingMode.HALF_UP);
+        System.out.println("e = " + String.valueOf(e));
+    }
+
+    @Test
+    public void testCompareDouble(){
+        BigDecimal a = new BigDecimal(0.10);
+        boolean result = a.compareTo(new BigDecimal(0.1))>=0;
         System.out.println("result = " + result);
     }
 

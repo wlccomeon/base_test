@@ -1,6 +1,7 @@
 package com.lc.test.java8;
 
 import com.alibaba.fastjson.JSON;
+import com.lc.test.entity.DateDTO;
 import com.lc.test.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -618,6 +619,25 @@ public class StreamApiTest {
 		//2020-3-3 15:00:15
 		List<String> collect = timeList.stream().sorted(Comparator.comparing(String::valueOf).reversed()).collect(Collectors.toList());
 		collect.forEach(System.out::println);
+	}
+
+	@Test
+	public void dateSortTest(){
+		List<DateDTO> events = Arrays.asList(
+				new DateDTO("Event 1", new Date(120, 3, 1)),
+				new DateDTO("Event 2", new Date(119, 5, 15)),
+				new DateDTO("Event 3", new Date(121, 5, 15)),
+				new DateDTO("Event 4", new Date(120, 1, 1))
+		);
+
+		List<DateDTO> sortedEvents = events.stream()
+				.sorted(Comparator.comparing(DateDTO::getEventDate))
+				.collect(Collectors.toList());
+
+		// 打印排序结果
+		sortedEvents.forEach(event ->
+				System.out.println(event.getName() + ": " + event.getEventDate())
+		);
 	}
 }
 

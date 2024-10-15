@@ -8,17 +8,24 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author wlc
+ * @desc: SecondUserServiceImpl
+ * @datetime: 2024/6/27 0027 17:57
+ */
 @Service
-@Qualifier("userServiceImpl")
-public class UserServiceimpl implements UserService {
+@Qualifier("secondUserServiceImpl")
+public class SecondUserServiceImpl implements UserService {
+
     @Override
     public List<User> list() {
         User user = new User();
         user.setId(1);
-        user.setName("wlc");
-        user.setAddress("北京");
+        user.setName("wlc啊啊");
+        user.setAddress("帝都");
         List<User> users = new ArrayList<>();
         users.add(user);
         return users;
     }
 }
+

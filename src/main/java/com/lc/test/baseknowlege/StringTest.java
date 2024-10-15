@@ -118,6 +118,16 @@ public class StringTest {
         System.out.println("substring = " + substring+"/");
     }
 
+    @Test
+    public void testStringBuilder(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("a").append("123434343").append("coodld");
+        System.out.println("sb.length() = " + sb.length());
+        System.out.println("sb.toString().length() = " + sb.toString().length());
+        String substring = sb.substring(0, 5);
+        System.out.println("substring = " + substring);
+    }
+
     /**
      * 移除空格的方法
      */
@@ -125,6 +135,30 @@ public class StringTest {
         String aa = "    hahaha lc  ";
         String bb = aa.trim();
         System.out.println("aa-->>"+aa+"去除空格之后的结果bb-->>"+bb);
+    }
+    @Test
+    public void testSubstr(){
+        String a = "aaa_bbb";
+        String b1 = a.substring(a.indexOf("_"));
+        System.out.println("b1 = " + b1);
+        String b2 = a.substring(a.indexOf("_")+1,a.length());
+        System.out.println("b2 = " + b2);
+        String b3 = a.substring(0,a.indexOf("_"));
+        System.out.println("b3 = " + b3);
+        //b1 = _bbb
+        //b2 = bbb
+        //b3 = aaa
+    }
+
+    @Test
+    public void strContainsTest(){
+        String a = "aaabbbccc";
+        String b = "bb";
+        if (a.contains(b)){
+            System.out.println("包含");
+        }else {
+            System.out.println("不包含");
+        }
     }
 
     /**
@@ -342,6 +376,22 @@ public class StringTest {
         System.out.println(url.substring(0,url.indexOf("loanContractFile:")));
         int a = 10086;
         int b = 200;
+    }
+
+    @Test
+    public void lastIndexOfTest(){
+        //String str = "小白兔-白又白-小老鼠-上灯台";
+        String str = "-";
+        int index = str.lastIndexOf("-");
+        System.out.println(index);
+        String lastStr = str.substring(index+1);
+        System.out.println("lastStr = " + lastStr);
+        if (index == -1){
+            System.out.println(str);
+        }else{
+            String preStr = str.substring(0, index);
+            System.out.println("preStr = " + preStr);
+        }
     }
 
 }

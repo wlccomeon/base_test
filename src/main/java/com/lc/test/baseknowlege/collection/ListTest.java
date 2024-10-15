@@ -90,6 +90,30 @@ public class ListTest {
     }
 
     @Test
+    public void referenceTest(){
+        List<User> originList = new ArrayList<>();
+        User user = new User();
+        user.setAddress("aaa");
+        user.setId(1);
+        originList.add(user);
+
+        User user2 = new User();
+        user2.setAddress("bbb");
+        user2.setId(2);
+
+        originList.add(user);
+        originList.add(user2);
+
+        List<User> nowList = new ArrayList<>();
+        nowList.addAll(originList);
+        for (User nowUser : nowList) {
+            nowUser.setAddress("ccc");
+        }
+        System.out.println("originList = " + originList);
+        System.out.println("nowList = " + nowList);
+    }
+
+    @Test
     public void subListTest(){
         List<String> strings = list.subList(0, 2);
         strings.forEach(System.out::println);

@@ -3,6 +3,7 @@ package com.lc.test.spring.controller;
 import com.lc.test.entity.User;
 import com.lc.test.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    @Qualifier("userServiceImpl")
     UserService userService;
 
     @Transactional
