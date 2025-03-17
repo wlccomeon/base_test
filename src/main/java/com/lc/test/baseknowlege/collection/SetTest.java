@@ -2,7 +2,9 @@ package com.lc.test.baseknowlege.collection;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +23,12 @@ public class SetTest {
             rank.setRoomId(String.valueOf(1));
             set.add(rank);
         }
+        System.out.println("set = " + set.toString());
+    }
+
+    @Test
+    public void testSet() {
+        Set<String> set = new HashSet<>(Arrays.asList("a","b","c"));
         System.out.println("set = " + set.toString());
     }
 

@@ -52,6 +52,8 @@ public class BigDecimalTest {
         BigDecimal a = new BigDecimal(0.10);
         boolean result = a.compareTo(new BigDecimal(0.1))>=0;
         System.out.println("result = " + result);
+        int i = a.compareTo(null);
+        System.out.println("i = " + i);
     }
 
     @Test

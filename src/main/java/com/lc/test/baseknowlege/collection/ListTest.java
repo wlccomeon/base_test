@@ -1,6 +1,7 @@
 package com.lc.test.baseknowlege.collection;
 
 import com.alibaba.fastjson.JSON;
+import com.lc.test.designpattern.singleton.T;
 import com.lc.test.entity.User;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -231,6 +232,39 @@ public class ListTest {
         subList1.remove(1);
         list.forEach(System.out::println);
 
+    }
+
+    /**
+     * List复制
+     */
+    @Test
+    public void commonCopyListTest(){
+        List<User> sourceList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setName("wlc"+i);
+            sourceList.add(user);
+        }
+        try {
+            List<User> targetList = this.copyList(sourceList, User.class);
+            System.out.println("targetList = " + JSON.toJSONString(targetList));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 复制list
+     */
+    public <T, V> List<V> copyList(List<T> sources, Class<V> target) throws Exception {
+        List<V> vList = new ArrayList<>();
+        for (T t : sources) {
+            V v = target.newInstance();
+            BeanUtils.copyProperties(t, v);
+            vList.add(v);
+        }
+        return vList;
     }
 
 }

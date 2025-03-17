@@ -3,6 +3,7 @@ package com.lc.test.baseknowlege;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author wlc
@@ -32,7 +33,12 @@ public class DoubleTest {
         System.out.println("c = " + c);
     }
 
-
+    @Test
+    public void testDoubleEquals(){
+        Double a = 0.000;
+        boolean b = Objects.equals(0.0, a);
+        System.out.println("b = " + b);
+    }
 
 
 }

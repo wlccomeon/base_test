@@ -233,5 +233,12 @@ public class IntegerTest {
         System.out.println("swap3方法内：a="+num1+",b="+num2);
 
     }
+    @Test
+    public void testDivide(){
+        int totalCount = 10;
+        int pageSize = 10;
+        int pageNum = totalCount % pageSize == 0 ? totalCount/pageSize : totalCount/pageSize +1;
+        System.out.println("pageNum = " + pageNum);
+    }
 
 }

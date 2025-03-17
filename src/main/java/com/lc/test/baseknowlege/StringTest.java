@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
 import com.lc.test.entity.User;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -380,8 +381,8 @@ public class StringTest {
 
     @Test
     public void lastIndexOfTest(){
-        //String str = "小白兔-白又白-小老鼠-上灯台";
-        String str = "-";
+        String str = "小白兔-白又白-小老鼠-上灯台";
+        //String str = "-";
         int index = str.lastIndexOf("-");
         System.out.println(index);
         String lastStr = str.substring(index+1);
@@ -392,6 +393,41 @@ public class StringTest {
             String preStr = str.substring(0, index);
             System.out.println("preStr = " + preStr);
         }
+
+    }
+
+    @Test
+    public void testNullSplit(){
+        String str = "a,b,c";
+        String[] split = StringUtils.split(str, ",");
+        System.out.println("split = " + split);
+        if(Objects.isNull(split) || split.length < 1){
+            System.out.println("进来了");
+        }else{
+            System.out.println("没进来");
+        }
+        String[] split1 = str.split(",");
+        List<String> strings = Arrays.stream(split1).collect(Collectors.toList());
+        System.out.println("strings = " + strings);
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()){
+            if ("b".equals(iterator.next())){
+                iterator.remove();
+            }
+        }
+        System.out.println("strings2 = " + strings);
+
+    }
+
+    @Test
+    public void testString(){
+        String str = "a,b,c";
+        String[] split = str.split(",");
+        List<String> result = new ArrayList<>();
+        result.addAll(Arrays.asList(split));
+        System.out.println("result1 = " + result);
+        result.addAll(Arrays.asList("a".split(",")));
+        System.out.println("result2 = " + result);
     }
 
 }

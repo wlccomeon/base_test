@@ -277,11 +277,9 @@ public class DateTest {
 
 	@Test
 	public void test(){
-		Boolean a = null;
-		int b = 0;
-		if (b == 0 && a){
-			System.out.println("aaaa");
-		}
+		System.out.println("System.currentTimeMillis() = " + System.currentTimeMillis());
 	}
+
+
 
 }
