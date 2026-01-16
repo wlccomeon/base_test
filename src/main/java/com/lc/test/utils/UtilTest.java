@@ -9,6 +9,7 @@ import org.springframework.util.StopWatch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wlc
@@ -67,4 +68,21 @@ public class UtilTest {
 //        userDTOS.stream().forEach(System.out::println);
 
     }
+
+
+    @Test
+    public void testStopWatch() throws InterruptedException {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("第一次");
+        TimeUnit.SECONDS.sleep(2);
+        stopWatch.stop();
+        System.out.println("stopWatch.getLastTaskTimeMillis() 1 = " + stopWatch.getLastTaskTimeMillis());
+        stopWatch.start("第2次");
+        TimeUnit.SECONDS.sleep(1);
+        stopWatch.stop();
+        System.out.println("stopWatch.getLastTaskTimeMillis() 2 = " + stopWatch.getLastTaskTimeMillis());
+        System.out.println("stopWatch.prettyPrint() = " + stopWatch.prettyPrint());
+
+    }
+
 }
