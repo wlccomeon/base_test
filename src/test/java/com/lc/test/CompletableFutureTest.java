@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -54,7 +55,7 @@ public class CompletableFutureTest {
             }
         }
         // 2. 使用线程安全的集合收集失败标识
-        List<Map<String,String>> failedProcessList = new CopyOnWriteArrayList<>();
+        Map<String,String> failedProcessMap = new ConcurrentHashMap<>();
         // 3. 对每个Entry进行异常处理
         List<CompletableFuture<Optional<User>>> safelyHandledFutures = futureMap.entrySet()
                 .stream().map(entry -> {
@@ -64,9 +65,7 @@ public class CompletableFutureTest {
                     return future.<Optional<User>>handle((user, throwable) -> {
                         if (throwable != null) {
                             log.error("任务[{}]执行失败，原因: {}", taskName, throwable.getMessage());
-                            Map<String,String> failedProcess = new HashMap<>();
-                            failedProcess.put(taskName,throwable.getMessage());
-                            failedProcessList.add(failedProcess);
+                            failedProcessMap.put(taskName,throwable.getMessage());
                             return Optional.empty();
                         }
                         return Optional.ofNullable(user);
@@ -83,9 +82,9 @@ public class CompletableFutureTest {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
-        log.info("成功完成任务数：{}，失败任务数：{}",successfulResults.size(),failedProcessList.size());
+        log.info("成功完成任务数：{}，失败任务数：{}",successfulResults.size(),failedProcessMap.size());
         System.out.println("successfulResults = " + successfulResults);
-        System.out.println("failedProcessList = " + failedProcessList);
+        System.out.println("failedProcessList = " + failedProcessMap);
     }
 
     @Component
