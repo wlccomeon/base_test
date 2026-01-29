@@ -3,6 +3,7 @@ package com.lc.test.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -30,17 +31,19 @@ public class UserDTO implements Serializable,Cloneable {
 //        }
 //    }
 
-    public UserDTO(Integer id, String name, Integer sex, String address){
+    public UserDTO(Integer id, String name, Integer sex, String address, BigDecimal money){
         this.id = id;
         this.name = name;
         this.sex = sex;
         this.address = address;
+        this.money = money;
     }
     public UserDTO(){}
     private Integer id;
     private String name;
     private Integer sex;
     private String address;
+    private BigDecimal money;
 
     @Override
     protected Object clone() throws CloneNotSupportedException {

@@ -1,9 +1,13 @@
 package com.lc.test.baseknowlege;
 
+import com.lc.test.entity.UserDTO;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class BigDecimalTest {
@@ -97,6 +101,22 @@ public class BigDecimalTest {
         //aUp = 2.14
         //bUp = 2.14
 
+    }
+
+    @Test
+    public void testNullAdd(){
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            UserDTO userDTO = new UserDTO();
+            if (i == 1){
+                userDTO.setMoney(null);
+            }else{
+                userDTO.setMoney(BigDecimal.valueOf(i));
+            }
+            dtoList.add(userDTO);
+        }
+        //如果不filter直接reduce会出现NPE问题
+        dtoList.stream().filter(p -> Objects.nonNull(p.getMoney())).map(UserDTO::getMoney).reduce(BigDecimal::add).ifPresent(System.out::println);
     }
 
 }
