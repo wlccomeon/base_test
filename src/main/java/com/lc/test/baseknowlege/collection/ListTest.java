@@ -88,6 +88,8 @@ public class ListTest {
 
         BeanUtils.copyProperties(user2,user);
         System.out.println("nowList = " + nowList);
+
+
     }
 
     @Test
@@ -110,6 +112,7 @@ public class ListTest {
         for (User nowUser : nowList) {
             nowUser.setAddress("ccc");
         }
+        //浅拷贝，会导致原集合被重新赋值
         System.out.println("originList = " + originList);
         System.out.println("nowList = " + nowList);
     }
@@ -135,8 +138,11 @@ public class ListTest {
     @Test
     public void assembleStrTest(){
         String key = "IEG_ANCHOR_CHALLENGE_TASK_HIT_AWARD:%s:%s:%s";
-        System.out.println("String.format(key,1,2) = " + String.format(key, 1, 2,""));
-        System.out.println("String.format(key,1,2,3) = " + String.format(key, 1, 2, 3));
+        //会报错，因为参数个数不匹配
+        System.out.println("String.format(key,1,2) = " + String.format(key, 1, 2));
+        //正常
+        System.out.println("String.format(key,1,2,3) = " + String.format(key, 1, 2, ""));
+        //没有参数进行format，会返回原字符串
         System.out.println("String.format(\"aaaaa\",2,3) = " + String.format("aaaaa", 2, 3));
     }
     
@@ -171,20 +177,21 @@ public class ListTest {
     @Test
     public void removeWhileTraverse(){
 
-//        Iterator<String> iterator = list.iterator();
-//        while (iterator.hasNext()){
-//            String next = iterator.next();
-//            if ("delete".equals(next)){
-//                iterator.remove();
-//            }
-//        }
-//        list.forEach(System.out::println);
-
-        for (String s : list) {
-            if ("delete".equals(s)){
-                list.remove(s);
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()){
+            String next = iterator.next();
+            if ("delete".equals(next)){
+                iterator.remove();
             }
         }
+        list.forEach(System.out::println);
+
+        //ConcurrentModificationException,遍历时不允许删除
+//        for (String s : list) {
+//            if ("delete".equals(s)){
+//                list.remove(s);
+//            }
+//        }
     }
 
     @Test

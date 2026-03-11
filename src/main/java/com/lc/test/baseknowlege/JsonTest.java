@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class JsonTest {
 
@@ -111,5 +112,11 @@ public class JsonTest {
         System.out.println("s = " + s);
     }
 
+    @Test
+    public void testJson2Map(){
+        String json = "{\"keyA\":\"valueA\",\"keyB\":\"valueB\"}";
+        Map<String,Object> map = JSONObject.parseObject(json, Map.class);
+        System.out.println("map = " + map);
+    }
     
 }

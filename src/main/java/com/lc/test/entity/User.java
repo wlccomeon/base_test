@@ -2,6 +2,7 @@ package com.lc.test.entity;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by wlc on 2017/8/15 0015.
  * @author wlc c
  */
+@SuperBuilder
 @Data
 public class User implements Serializable,Cloneable {
     private static final AtomicLong num = new AtomicLong(0);

@@ -1,6 +1,7 @@
 package com.lc.test.baseknowlege.enums;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
 import java.util.Arrays;
@@ -21,4 +22,19 @@ public class EnumTest {
 		StatusEnum waitting = StatusEnum.valueOf("waitting".toUpperCase());
 		System.out.println("waitting = " + waitting);
 	}
+
+	@Test
+	public void testPrint(){
+		System.out.println("plan.A.name() = " + plan.A.name().equals("A"));
+		System.out.println("planMethod.A.name() = " + planMethod.A.name().equals("A"));
+	}
+
+	enum plan{
+		A,B;
+	}
+	enum planMethod{
+		A(),
+		B();
+	}
+
 }

@@ -430,4 +430,13 @@ public class StringTest {
         System.out.println("result2 = " + result);
     }
 
+    @Test
+    public void testSubString2(){
+        String dateSection = "2017.09.04-2037.09.04";
+        String startDate = dateSection.substring(0, 10).replace(".", "-");
+        String endDate = dateSection.substring(11).replace(".", "-");
+        System.out.println("startDate = " + startDate);
+        System.out.println("endDate = " + endDate);
+    }
+
 }
