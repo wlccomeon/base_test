@@ -1,10 +1,7 @@
-package com.lc.test.designpattern.callback;
+package com.lc.test.skills.callback;
 
 import com.lc.test.entity.User;
-import com.lc.test.utils.snowflakes.IdWorker;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.UUID;
 
 /**
  * @author wlc

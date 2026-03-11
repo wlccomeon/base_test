@@ -1,4 +1,4 @@
-package com.lc.test.designpattern.callback;
+package com.lc.test.skills.callback;
 
 import com.lc.test.entity.User;
 import lombok.extern.slf4j.Slf4j;

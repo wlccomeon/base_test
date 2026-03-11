@@ -1,4 +1,4 @@
-package com.lc.test.designpattern.callback;
+package com.lc.test.skills.callback;
 
 /**
  * @desc   回调接口
