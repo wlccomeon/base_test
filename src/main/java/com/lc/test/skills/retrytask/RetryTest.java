@@ -24,6 +24,7 @@ public class RetryTest {
 
     /**
      * 在任务执行失败时的重试逻辑
+     * 实际使用过程中：1.可以设置成一个定时任务的形式 2.可以结合MQ使用消息消费的形式
      */
     public void executeWithRetry(Runnable task, RetryStrategyEnum strategy, String retryDuration) {
         int maxRetries = 5;
